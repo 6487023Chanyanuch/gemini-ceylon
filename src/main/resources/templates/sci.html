@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Science Observer Page</title>
+    <style>
+        h1 {
+            font-size: 30px;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        table {
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        .tbl-header {
+            background-color: #b7bdef;
+            padding-right: 0;
+        }
+
+        .tbl-content {
+            height: 300px;
+            overflow-x: auto;
+            margin-top: 0px;
+            border: 1px solid rgba(0, 0, 0, 0.3);
+        }
+
+        th {
+            padding: 20px 15px;
+            text-align: left;
+            font-weight: 500;
+            font-size: 12px;
+            color: #000000;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 15px;
+            text-align: left;
+            vertical-align: middle;
+            font-weight: 300;
+            font-size: 12px;
+            color: #000000;
+            border-bottom: solid 1px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Button style */
+        .create-button {
+            background-color: #7380ec;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .create-button:hover {
+            background-color: #111e88;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        /* demo styles */
+
+        @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            font-family: "Alegreya Sans", sans-serif;
+            font-size: 0.88rem;
+            background: #ffffff;
+            user-select: none;
+            overflow-x: hidden;
+        }
+
+        section {
+            margin: 50px;
+        }
+
+
+        /* follow me template */
+        .made-with-love {
+            margin-top: 40px;
+            padding: 10px;
+            clear: left;
+            text-align: center;
+            font-size: 10px;
+            font-family: arial;
+            color: #fff;
+        }
+
+        .made-with-love i {
+            font-style: normal;
+            color: #F50057;
+            font-size: 14px;
+            position: relative;
+            top: 2px;
+        }
+
+        .made-with-love a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .made-with-love a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* for custom scrollbar for webkit browser*/
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        }
+
+        /* CSS styles for the modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .input-form {
+            padding: 20px;
+            margin: 5px;
+            font-size: 16px;
+        }
+
+        .input-form label {
+            width: 100px;
+            font-size: 16px;
+            padding: 20px;
+        }
+
+        .css-input-form {
+            padding: 5px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Science Plans</h2>
+    <div class="tbl-header">
+        <table cellpadding="0" cellspacing="0" border="0">
+            <thead>
+            <tr>
+                <th>Plan No</th>
+                <th>Creator</th>
+                <th>Submitter</th>
+                <th>Funding (USD)</th>
+                <th>Objectives</th>
+                <th>Star System</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Telescope Location</th>
+                <th>Status</th>
+                <th>Action</th> <!-- New column header -->
+            </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="tbl-content">
+        <table cellpadding="0" cellspacing="0" border="0">
+            <tbody id="sciencePlansBody">
+            <!-- Data will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal form -->
+<div id="modalForm" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Create Observing Program</h2>
+        <form id="sciencePlanForm">
+            <label for="planNo">Plan No:</label>
+            <input type="text" id="planNo" name="planNo" readonly><br>
+
+            <label for="opticsPrimary">Optics Primary:</label>
+            <input type="text" id="opticsPrimary" name="opticsPrimary"><br>
+
+            <label for="fStop">F Stop:</label>
+            <input type="number" id="fStop" name="fStop"><br>
+
+            <label for="opticsSecondaryRMS">Optics Secondary RMS:</label>
+            <input type="number" id="opticsSecondaryRMS" name="opticsSecondaryRMS"><br>
+
+            <label for="scienceFoldMirrorDegree">Science Fold Mirror Degree:</label>
+            <input type="number" id="scienceFoldMirrorDegree" name="scienceFoldMirrorDegree"><br>
+
+            <label for="scienceFoldMirrorType">Science Fold Mirror Type:</label>
+            <input type="text" id="scienceFoldMirrorType" name="scienceFoldMirrorType"><br>
+
+            <label for="moduleContent">Module Content:</label>
+            <input type="number" id="moduleContent" name="moduleContent"><br>
+
+            <label for="calibrationUnit">Calibration Unit:</label>
+            <input type="text" id="calibrationUnit" name="calibrationUnit"><br>
+
+            <label for="lightType">Light Type:</label>
+            <input type="text" id="lightType" name="lightType"><br>
+
+            <label for="telePositionCount">Number of Tele Position Pairs:</label>
+            <input type="number" id="telePositionCount" name="telePositionCount" min="0"><br>
+
+            <div id="telePositionFields">
+                <!-- ฟิลด์ของ telePositionPairs จะถูกสร้างขึ้นโดย JavaScript -->
+            </div>
+
+            <label for="observerId">Observer ID:</label>
+            <input type="number" id="observerId" name="observerId" readonly><br>
+
+            <label for="observerName">Observer Name:</label>
+            <input type="text" id="observerName" name="observerName" readonly><br>
+
+            <label for="observerAffiliation">Observer Affiliation:</label>
+            <input type="text" id="observerAffiliation" name="observerAffiliation"><br>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</div>
+
+
+<script>
+    // Function to fetch science plans data
+    function fetchSciencePlans() {
+        fetch('/sciplans') // Assuming this endpoint returns the science plans JSON data
+            .then(response => response.json())
+            .then(data => {
+                const sciencePlansBody = document.getElementById('sciencePlansBody');
+
+                // Clear any existing rows
+                sciencePlansBody.innerHTML = '';
+
+                // Iterate over the science plans and create table rows
+                data.forEach(plan => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${plan.planNo}</td>
+                        <td>${plan.creator}</td>
+                        <td>${plan.submitter}</td>
+                        <td>${plan.fundingInUSD}</td>
+                        <td>${plan.objectives}</td>
+                        <td>${plan.starSystem}</td>
+                        <td>${plan.startDate}</td>
+                        <td>${plan.endDate}</td>
+                        <td>${plan.telescopeLocation}</td>
+                        <td>${plan.status}</td>
+                        <td><button class="create-button">Create Science Plan</button></td>
+
+                    `;
+                    sciencePlansBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching science plans:', error));
+    }
+
+    // Call the function to fetch and display science plans data
+    fetchSciencePlans();
+
+    // Event listener to display form when button is clicked
+    document.addEventListener('click', function(event) {
+        if (event.target.classList.contains('create-button')) {
+            document.getElementById('modalForm').style.display = 'block';
+        }
+    });
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        document.getElementById('modalForm').style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('modalForm')) {
+            document.getElementById('modalForm').style.display = "none";
+        }
+    }
+
+    // Event listener to display form when button is clicked
+    document.addEventListener('click', function(event) {
+        if (event.target.classList.contains('create-button')) {
+            // เมื่อคลิกที่ปุ่ม "Create Science Plan" ให้ดึงค่า Plan No จากตารางและกำหนดให้กับฟอร์ม
+            let planNo = event.target.parentNode.parentNode.querySelector('td:first-child').innerText;
+            document.getElementById('planNo').value = planNo;
+            // แสดง Modal
+            document.getElementById('modalForm').style.display = 'block';
+        }
+    });
+
+    // Event listener เมื่อผู้ใช้เปลี่ยนค่าของจำนวน telePositionPairs
+    document.getElementById('telePositionCount').addEventListener('change', function(event) {
+        let telePositionCount = parseInt(event.target.value); // ดึงจำนวน telePositionPairs ที่ผู้ใช้เลือก
+        let telePositionFieldsContainer = document.getElementById('telePositionFields'); // ส่วนที่เก็บฟิลด์ของ telePositionPairs
+        telePositionFieldsContainer.innerHTML = ''; // ล้างฟิลด์ที่มีอยู่ก่อนหน้านี้
+
+        // สร้างฟิลด์ telePositionPairs ตามจำนวนที่ผู้ใช้เลือก
+        for (let i = 0; i < telePositionCount; i++) {
+            let telePositionField = document.createElement('div');
+            telePositionField.innerHTML = `
+                <label for="telePosition_${i}_direction">Tele Position ${i + 1} Direction:</label>
+                <input type="number" id="telePosition_${i}_direction" name="telePositionPairs[${i}].direction">
+
+                <label for="telePosition_${i}_degree">Tele Position ${i + 1} Degree:</label>
+                <input type="number" id="telePosition_${i}_degree" name="telePositionPairs[${i}].degree"><br>
+            `;
+            telePositionFieldsContainer.appendChild(telePositionField);
+        }
+    });
+
+    // Function to fetch user ID from the server
+    function fetchUserId() {
+        fetch('/userId') // Assuming this endpoint returns the user ID
+            .then(response => response.json())
+            .then(data => {
+                // Get the input element by its ID
+                const observerIdInput = document.getElementById('observerId');
+                const observerNameInput = document.getElementById('observerName');
+                // Set the value of the input element to the fetched user ID
+                observerIdInput.value = data.userId;
+                observerNameInput.value = data.userName;
+            })
+            .catch(error => console.error('Error fetching user ID:', error));
+    }
+
+    // Call the function to fetch and display the user ID
+    fetchUserId();
+</script>
+
+</body>
+</html>

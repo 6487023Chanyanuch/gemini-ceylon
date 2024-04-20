@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Science Observer Page</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" /> -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,700;1,800;1,900&family=IBM+Plex+Sans+Thai+Looped:wght@100;200;300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            outline: 0;
+            appearance: 0;
+            border: 0;
+            text-decoration: none;
+            list-style: none;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: 30px;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 300;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        table {
+            width: 100%;
+            table-layout: fixed;
+        }
+
+        .tbl-header {
+            background-color: #b7bdef;
+            padding-right: 0;
+        }
+
+        .tbl-content {
+            height: 300px;
+            overflow-x: auto;
+            margin-top: 0px;
+            border: 1px solid rgba(0, 0, 0, 0.3);
+        }
+
+        th {
+            padding: 20px 15px;
+            text-align: left;
+            font-weight: 500;
+            font-size: 12px;
+            color: #000000;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 15px;
+            text-align: left;
+            vertical-align: middle;
+            font-weight: 300;
+            font-size: 12px;
+            color: #000000;
+            border-bottom: solid 1px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Button style */
+        .create-button {
+            background-color: #7380ec;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .create-button:hover {
+            background-color: #111e88;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        /* demo styles */
+
+        @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
+
+        body {
+            width: 100vw;
+            height: 100vh;
+            font-family: "Alegreya Sans", sans-serif;
+            font-size: 0.88rem;
+            background: #ffffff;
+            user-select: none;
+            overflow-x: hidden;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+        }
+
+        section {
+            margin: 50px;
+        }
+
+
+        /* follow me template */
+        .made-with-love {
+            margin-top: 40px;
+            padding: 10px;
+            clear: left;
+            text-align: center;
+            font-size: 10px;
+            font-family: arial;
+            color: #fff;
+        }
+
+        .made-with-love i {
+            font-style: normal;
+            color: #F50057;
+            font-size: 14px;
+            position: relative;
+            top: 2px;
+        }
+
+        .made-with-love a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .made-with-love a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* for custom scrollbar for webkit browser*/
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        }
+
+        /* CSS styles for the modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .input-form {
+            padding: 20px;
+            margin: 5px;
+            font-size: 16px;
+        }
+
+        .input-form label {
+            width: 100px;
+            font-size: 16px;
+            padding: 20px;
+        }
+
+        .css-input-form {
+            padding: 5px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+
+        /* Test Style Form */
+        .zf-templateWrapper {
+            background: #fff;
+            border: 1px solid #d6d6d6;
+            -webkit-box-shadow: 0 0px 3px #E1E1E1;
+            -moz-box-shadow: 0 0px 3px #E1E1E1;
+            box-shadow: 0 0px 3px #E1E1E1;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+        }
+
+        .zf-tempContDiv input[type="text"],
+        .zf-tempContDiv input[type="number"],
+        .zf-tempContDiv textarea,
+        .zf-tempContDiv .zf-pdfTextArea {
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            -webkit-border-radius: 2px;
+            -moz-border-radius: 2px;
+            border-radius: 2px;
+            padding: 5px;
+            font-size: 13px;
+        }
+
+        .zf-tempContDiv input[type="text"]:hover,
+        .zf-tempContDiv input[type="number"]:hover,
+        .zf-tempContDiv textarea:hover {
+            border: 1px solid rgba(157, 157, 157, 0.75) !important;
+        }
+
+        .zf-tempContDiv input[type="text"]:focus,
+        .zf-tempContDiv input[type="number"]:focus,
+        .zf-tempContDiv textarea:focus {
+            border: 1px solid rgba(121, 187, 238, 0.75) !important;
+            -webkit-box-shadow: 0 0 5px rgba(82, 168, 236, 0.5) !important;
+            -moz-box-shadow: 0 0 5px rgba(82, 168, 236, 0.5) !important;
+            box-shadow: 0 0 5px rgba(82, 168, 236, 0.5) !important;
+        }
+
+
+        /**********Error Message***********/
+        .zf-errorMessage {
+            font: 12px Arial, Helvetica, sans-serif;
+            color: #ff0000;
+            padding-top: 5px;
+        }
+
+        /**********Mandatory Message***********/
+        .zf-important {
+            color: #ff0000 !important;
+            font-weight: normal;
+            margin-left: 0px;
+            padding: 0;
+            font-size: 13px !important;
+        }
+
+        .zf-subContWrap {
+            padding: 0;
+            margin: 10px;
+            margin-bottom: 0;
+        }
+
+        .zf-tempFrmWrapper {
+            padding: 10px 15px;
+            margin: 1px 0;
+        }
+
+        .zf-tempFrmWrapper .zf-tempContDiv {
+            margin: 0;
+            padding: 0;
+        }
+
+        .zf-tempFrmWrapper .zf-labelName {
+            font-weight: bold;
+            font-size: 13px;
+            color: #444;
+        }
+
+        .zf-form-sBox {
+            padding: 4px;
+            border: 1px solid #e5e5e5;
+            font-size: 13px;
+        }
+
+
+        .zf-phone .zf-tempContDiv span label,
+        .zf-date .zf-tempContDiv span label,
+        .zf-time .zf-tempContDiv span label,
+        .zf-address .zf-tempContDiv span label,
+        .zf-geolocation .zf-tempContDiv span label,
+        .zf-name .zf-tempContDiv span label {
+            font-size: 11px;
+            padding-top: 3px;
+        }
+
+        .zf-phone .zf-tempContDiv label,
+        .zf-date .zf-tempContDiv label,
+        .zf-time .zf-tempContDiv label,
+        .zf-address .zf-tempContDiv label,
+        .zf-name .zf-tempContDiv span label {
+            color: #888888;
+        }
+
+        .zf-date .zf-tempContDiv span label {
+            display: block;
+            padding-top: 3px;
+            text-align: left;
+        }
+
+        .zf-subDate {
+            margin-right: 10px;
+        }
+
+        .zf-subDate label {
+            text-align: left !important;
+        }
+
+
+        .zf-mSelect select {
+            font-size: 13px;
+            font-family: "Alegreya Sans", sans-serif;
+        }
+
+        .zf-fmFooter {
+            margin: 0;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .zf-fmFooter .zf-submitColor {
+            font-size: 14px;
+            padding: 4px 10px;
+        }
+
+        .zf-submitColor {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #7380ec;
+            color: white;
+            text-align: center;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            width: 100px;
+            height: 40px;
+        }
+
+        .zf-submitColor:hover {
+            background-color: #111e88;
+        }
+
+
+        /****************Field Small/Medium/Large Ends Here****************/
+
+        .zf-topAlign .zf-tempFrmWrapper .zf-labelName {
+            padding-bottom: 8px;
+            display: block;
+        }
+
+        .zf-topAlign .zf-threeColumns .zf-labelName,
+        .zf-topAlign .zf-twoColumns .zf-labelName,
+        .zf-topAlign .zf-oneColumns .zf-labelName,
+        .zf-topAlign .zf-sideBySide .zf-labelName {
+            padding-bottom: 8px;
+        }
+
+        .zf-leftAlign {
+            display: block;
+        }
+
+        .zf-leftAlign .zf-tempFrmWrapper .zf-labelName {
+            float: left;
+            width: 30%;
+            line-height: 20px;
+            margin-right: 15px;
+        }
+
+        .zf-leftAlign .zf-tempFrmWrapper .zf-tempContDiv {
+            margin-left: 35%;
+        }
+
+        .zf-leftAlign .zf-slider .zf-tempContDiv {
+            margin-top: 6px;
+        }
+
+
+        .zf-rightAlign {
+            display: block;
+        }
+
+        .zf-rightAlign .zf-tempFrmWrapper .zf-labelName {
+            float: left;
+            width: 30%;
+            line-height: 20px;
+            text-align: right;
+            margin-right: 15px;
+        }
+
+        .zf-rightAlign .zf-tempFrmWrapper .zf-tempContDiv {
+            margin-left: 35%;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <main>
+        <h2>Science Plans</h2>
+        <div><button class="create-button">Create Science Plan</button> </div>
+        <br>
+        <div class="tbl-header">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <thead>
+                <tr>
+                    <th>Plan No</th>
+                    <th>Creator</th>
+                    <th>Submitter</th>
+                    <th>Funding (USD)</th>
+                    <th>Objectives</th>
+                    <th>Star System</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Telescope Location</th>
+                    <th>Status</th>
+                    <th>Action</th> <!-- New column header -->
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div class="tbl-content">
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tbody id="sciencePlansBody">
+                <!-- Data will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+</div>
+
+<!-- Modal form -->
+<div id="modalForm" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+
+        <form id="sciencePlanForm">
+            <div class="zf-subContWrap zf-leftAlign">
+                <ul>
+                    <!---------Science Plan Name Starts Here---------->
+                    <li class="zf-tempFrmWrapper zf-small"><label class="zf-labelName"> Science Plan Name
+                        <!-- <em class="zf-important">*</em> -->
+                    </label>
+                        <div class="zf-tempContDiv">
+                            <span> <input id="planName" type="text" name="planName" placeholder="" /> </span>
+                            <p class="zf-errorMessage" style="display:none;">Invalid value</p>
+                        </div>
+                        <div class="zf-clearBoth"></div>
+                    </li>
+                    <!---------Science Plan Name Starts Here---------->
+
+                    <!---------Creator Name Starts Here---------->
+                    <li class="zf-tempFrmWrapper zf-small"><label class="zf-labelName"> Creator Name </label>
+                        <div class="zf-tempContDiv">
+                            <span> <input id="creatorName" type="text" name="creatorName" /> </span>
+                            <p class="zf-errorMessage" style="display:none;">Invalid value</p>
+                        </div>
+                        <div class="zf-clearBoth"></div>
+                    </li>
+                    <!---------Creator Name Ends Here---------->
+
+                    <!---------Submitter Name Starts Here---------->
+                    <li class="zf-tempFrmWrapper zf-small"><label class="zf-labelName"> Submitter Name </label>
+                        <div class="zf-tempContDiv">
+                            <span> <input id="submitterName" type="text" name="submitterName" /> </span>
+                            <p class="zf-errorMessage" style="display:none;">Invalid value</p>
+                        </div>
+                        <div class="zf-clearBoth"></div>
+                    </li>
+                    <!---------Submitter Name Ends Here---------->
+
+                    <!---------Currency Starts Here---------->
+                    <li class="zf-tempFrmWrapper zf-currency zf-cmedium"><label class="zf-labelName"> Funding (USD)
+                    </label>
+                        <div class="zf-tempContDiv">
+                            <div>
+                                <input id="currency" type="text" name="currency" />
+                                <span>USD </span>
+                                <div class="zf-clearBoth"></div>
+                            </div>
+                            <p id="Currency_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                        </div>
+                        <div class="zf-clearBoth"></div>
+                    </li>
+                    <!---------Currency Ends Here---------->
+
+                    <!---------Objectives Starts Here---------->
+                    <li class="zf-tempFrmWrapper zf-large"><label class="zf-labelName"> Objectives </label>
+                        <div class="zf-tempContDiv">
+                                <span> <textarea name="SciObjectives" maxlength="65535" id="SciObjectives"></textarea>
+                                </span>
+                            <p id="MultiLine_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                        </div>
+                        <div class="zf-clearBoth"></div>
+                    </li>
+                    <!---------Objectives Line Ends Here---------->
+
+                    <!---------Star Starts Here---------->
+                    <li class="zf-tempFrmWrapper zf-medium"><label class="zf-labelName"> Star System </label>
+                        <div class="zf-tempContDiv">
+                            <span> <input id="SciStar" type="text" name="SciStar" /></span>
+                            <p id="SingleLine_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                        </div>
+                        <div class="zf-clearBoth"></div>
+                    </li>
+                    <!---------Star Ends Here---------->
+
+                    <!---------Start Date Starts Here---------->
+                    <li class="zf-tempFrmWrapper zf-date"><label class="zf-labelName"> Start Date </label>
+                        <div class="zf-tempContDiv">
+                                <span> <input id="sciStartDate" type="text"
+                                              name="sciStartDate" /><label>dd-MM-yyyy</label> </span>
+                            <div class="zf-clearBoth"></div>
+                            <p id="Date_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                        </div>
+                        <div class="zf-clearBoth"></div>
+                    </li>
+                    <!---------Date Ends Here---------->
+
+                    <!---------End Date Starts Here---------->
+                    <li class="zf-tempFrmWrapper zf-date"><label class="zf-labelName"> End Date </label>
+                        <div class="zf-tempContDiv">
+                                <span> <input id="sciEndDate" type="text" name="sciEndDate" /><label>dd-MM-yyyy</label>
+                                </span>
+                            <div class="zf-clearBoth"></div>
+                            <p id="Date1_error" class="zf-errorMessage" style="display:none;">Invalid value </p>
+                        </div>
+                        <div class="zf-clearBoth"></div>
+                    </li>
+                    <!---------End Date Ends Here---------->
+
+                    <!---------Telescope Location Starts Here---------->
+                    <li class="zf-tempFrmWrapper zf-small"><label class="zf-labelName"> Telescope Location </label>
+                        <div class="zf-tempContDiv">
+                            <span> <input id="teleScopeName" type="text" name="teleScopeName" /></span>
+                            <p id="SingleLine1_error" class="zf-errorMessage" style="display:none;">Invalid value
+                            </p>
+                        </div>
+                        <div class="zf-clearBoth"></div>
+                    </li>
+                    <!---------Telescope Location Ends Here---------->
+
+                    <!---------Dropdown File Type Starts Here---------->
+                    <li class="zf-tempFrmWrapper zf-small"><label class="zf-labelName"> File Type </label>
+                        <div class="zf-tempContDiv">
+                            <select id="DropdownType" class="zf-form-sBox" name="DropdownType">
+                                <option selected="true" value="-Select-"> -Select- </option>
+                                <option value="PNG">PNG</option>
+                                <option value="JPEG">JPEG</option>
+                                <option value="RAW">RAW</option>
+                            </select>
+                            <p id="Dropdown_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                        </div>
+                        <div class="zf-clearBoth"></div>
+                    </li>
+                    <!---------Dropdown File Type Ends Here---------->
+
+                    <!---------Dropdown File Quality Starts Here---------->
+                    <li class="zf-tempFrmWrapper zf-small"><label class="zf-labelName">
+                        File Quality </label>
+                        <div class="zf-tempContDiv">
+                            <select id="DropdownQuality" class="zf-form-sBox" name="DropdownQuality">
+                                <option selected="true" value="-Select-">-Select-</option>
+                                <option value="Low">Low</option>
+                                <option value="Fine">Fine</option>
+                            </select>
+                            <p id="Dropdown1_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                        </div>
+                        <div class="zf-clearBoth"></div>
+                    </li>
+                    <!---------Dropdown File Quality Ends Here---------->
+
+                    <!---------Dropdown Color Starts Here---------->
+                    <li class="zf-tempFrmWrapper zf-small"><label class="zf-labelName">
+                        Color Type </label>
+                        <div class="zf-tempContDiv">
+                            <select id="DropdownColor" class="zf-form-sBox" name="DropdownColor">
+                                <option selected="true" value="-Select-">-Select-</option>
+                                <option value="Color&#x20;mode">Color mode</option>
+                                <option value="B&amp;W&#x20;mode">B&amp;W mode</option>
+                            </select>
+                            <p id="Dropdown2_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                        </div>
+                        <div class="zf-clearBoth"></div>
+                    </li>
+                    <!---------Dropdown Color Ends Here---------->
+
+                    <!---------Contrast Starts Here---------->
+                    <li class="zf-tempFrmWrapper zf-small"><label class="zf-labelName">
+                        Contrast
+                    </label>
+                        <div class="zf-tempContDiv">
+                            <span> <input id="Contrast" type="number" name="SciContrast"> </span>
+                            <p id="Number1_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                        </div>
+                        <div class="zf-clearBoth"></div>
+                    </li>
+                    <!---------Contrast Ends Here---------->
+
+                    <!---------Brightness Starts Here---------->
+                    <li class="zf-tempFrmWrapper zf-small"><label class="zf-labelName">
+                        Brightness</label>
+                        <div class="zf-tempContDiv">
+                            <span> <input id="SciBrightness" type="number" name="SciBrightness" /></span>
+                            <p id="Number_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                        </div>
+                        <div class="zf-clearBoth"></div>
+                    </li>
+                    <!---------Brightness Ends Here---------->
+
+                    <!---------Saturation Starts Here---------->
+                    <li class="zf-tempFrmWrapper zf-small"><label class="zf-labelName">
+                        Saturation </label>
+                        <div class="zf-tempContDiv">
+                            <span> <input id="SciSaturation" type="number" name="SciSaturation" /></span>
+                            <p id="Number3_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                        </div>
+                        <div class="zf-clearBoth"></div>
+                    </li>
+                    <!---------Number Ends Here---------->
+
+                    <!---------Highlights Starts Here---------->
+                    <li class="zf-tempFrmWrapper zf-small"><label class="zf-labelName">
+                        Highlights
+                    </label>
+                        <div class="zf-tempContDiv">
+                            <span> <input id="SciHighlights" type="number" name="SciHighlights" /></span>
+                            <p id="Number4_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                        </div>
+                        <div class="zf-clearBoth"></div>
+                    </li>
+                    <!---------Highlights Ends Here---------->
+
+                    <!---------Exposure Starts Here---------->
+                    <li class="zf-tempFrmWrapper zf-small"><label class="zf-labelName">
+                        Exposure
+                    </label>
+                        <div class="zf-tempContDiv">
+                            <span> <input id="SciExposure" type="number" name="SciExposure" /></span>
+                            <p id="Number5_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                        </div>
+                        <div class="zf-clearBoth"></div>
+                    </li>
+                    <!---------Exposure Ends Here---------->
+
+                    <!---------Shadows Starts Here---------->
+                    <li class="zf-tempFrmWrapper zf-small"><label class="zf-labelName">
+                        Shadows </label>
+                        <div class="zf-tempContDiv">
+                            <span> <input id="SciShadows" type="number" name="SciShadows" /></span>
+                            <p id="Number6_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                        </div>
+                        <div class="zf-clearBoth"></div>
+                    </li>
+                    <!---------Shadows Ends Here---------->
+
+                    <!---------Whites Starts Here---------->
+                    <li class="zf-tempFrmWrapper zf-small"><label class="zf-labelName">
+                        Whites
+                    </label>
+                        <div class="zf-tempContDiv">
+                            <span> <input id="SciWhites" type="number" name="SciWhites" /></span>
+                            <p id="Number7_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                        </div>
+                        <div class="zf-clearBoth"></div>
+                    </li>
+                    <!---------Whites Ends Here---------->
+
+                    <!---------Blacks Starts Here---------->
+                    <li class="zf-tempFrmWrapper zf-small"><label class="zf-labelName">
+                        Blacks
+                    </label>
+                        <div class="zf-tempContDiv">
+                            <span> <input id="SciBlacks" type="number" name="SciBlacks" /></span>
+                            <p id="Number8_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                        </div>
+                        <div class="zf-clearBoth"></div>
+                    </li>
+                    <!---------Blacks Ends Here---------->
+
+                    <!---------Luminance Starts Here---------->
+                    <li class="zf-tempFrmWrapper zf-small"><label class="zf-labelName">
+                        Luminance
+                    </label>
+                        <div class="zf-tempContDiv">
+                            <span> <input id="SciLuminance" type="number" name="SciLuminance" /></span>
+                            <p id="Number9_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                        </div>
+                        <div class="zf-clearBoth"></div>
+                    </li>
+                    <!---------Luminance Ends Here---------->
+
+                    <!---------Hue Starts Here---------->
+                    <li class="zf-tempFrmWrapper zf-small"><label class="zf-labelName">
+                        Hue
+                    </label>
+                        <div class="zf-tempContDiv">
+                            <span> <input id="SciHue" type="number" name="SciHue" /></span>
+                            <p id="Number10_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                        </div>
+                        <div class="zf-clearBoth"></div>
+                    </li>
+                    <!---------Number Ends Here---------->
+
+                </ul>
+            </div>
+            <!---------template Container Starts Here---------->
+
+            <ul>
+                <li class="zf-fmFooter"><button id="myButton" type="submit" value="Submit" class="zf-submitColor">
+                    CREATE </button></li>
+            </ul>
+    </div>
+    <!-- 'zf-templateWrapper' ends -->
+
+    </form>
+</div>
+</div>
+
+</main>
+
+
+<script>
+    // Function to fetch science plans data
+    function fetchSciencePlans() {
+        fetch('/sciplans') // Assuming this endpoint returns the science plans JSON data
+            .then(response => response.json())
+            .then(data => {
+                const sciencePlansBody = document.getElementById('sciencePlansBody');
+
+                // Clear any existing rows
+                sciencePlansBody.innerHTML = '';
+
+                // Iterate over the science plans and create table rows
+                data.forEach(plan => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${plan.planNo}</td>
+                        <td>${plan.creator}</td>
+                        <td>${plan.submitter}</td>
+                        <td>${plan.fundingInUSD}</td>
+                        <td>${plan.objectives}</td>
+                        <td>${plan.starSystem}</td>
+                        <td>${plan.startDate}</td>
+                        <td>${plan.endDate}</td>
+                        <td>${plan.telescopeLocation}</td>
+                        <td>${plan.status}</td>
+                        <td><button class="create-button">Test</button></td>
+
+                    `;
+                    sciencePlansBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching science plans:', error));
+    }
+
+    // Call the function to fetch and display science plans data
+    fetchSciencePlans();
+
+
+    // ----- Action Form -----
+    // Event listener to display form when button is clicked
+    document.addEventListener('click', function (event) {
+        if (event.target.classList.contains('create-button')) {
+            document.getElementById('modalForm').style.display = 'block';
+        }
+    });
+
+    // Get the <span> element that closes the modal
+    var span = document.querySelector(".modal-content .close");
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+        document.getElementById("modalForm").style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        var modal = document.getElementById("modalForm");
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // document.getElementById("myButton").addEventListener("click", function () {
+    //     alert("กำลังเปลี่ยนหน้า...");
+    // });
+
+    // Event listener to display form when button is clicked
+    // document.addEventListener('click', function (event) {
+    //     if (event.target.classList.contains('create-button')) {
+    //         // เมื่อคลิกที่ปุ่ม "Create Science Plan" ให้ดึงค่า Plan No จากตารางและกำหนดให้กับฟอร์ม
+    //         let planNo = event.target.parentNode.parentNode.querySelector('td:first-child').innerText;
+    //         document.getElementById('planNo').value = planNo;
+    //         // แสดง Modal
+    //         document.getElementById('modalForm').style.display = 'block';
+    //     }
+    // });
+
+    document.getElementById('sciencePlanForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // หยุดการ submit ฟอร์มเพื่อป้องกันหน้าเว็บโหลดใหม่
+
+        // ดึงค่าจากฟอร์ม
+        let planName = document.getElementById('planName').value;
+        let creatorName = document.getElementById('creatorName').value;
+        let submitterName = document.getElementById('submitterName').value;
+        let currency = document.getElementById('currency').value;
+        let SciObjectives = document.getElementById('SciObjectives').value;
+        let SciStar = document.getElementById('SciStar').value;
+        let sciStartDate = document.getElementById('sciStartDate').value;
+        let sciEndDate = document.getElementById('sciEndDate').value;
+        let teleScopeName = document.getElementById('teleScopeName').value;
+        let DropdownType = document.getElementById('DropdownType').value;
+        let DropdownQuality = document.getElementById('DropdownQuality').value;
+        let DropdownColor = document.getElementById('DropdownColor').value;
+        let Contrast = document.getElementById('Contrast').value;
+        let SciBrightness = document.getElementById('SciBrightness').value;
+        let SciSaturation = document.getElementById('SciSaturation').value;
+        let SciHighlights = document.getElementById('SciHighlights').value;
+        let SciExposure = document.getElementById('SciExposure').value;
+        let SciShadows = document.getElementById('SciShadows').value;
+        let SciWhites = document.getElementById('SciWhites').value;
+        let SciBlacks = document.getElementById('SciBlacks').value;
+        let SciLuminance = document.getElementById('SciLuminance').value;
+        let SciHue = document.getElementById('SciHue').value;
+
+        // สร้าง JSON object
+        let data = {
+            "scienceplanName": planName,
+            "creator": creatorName,
+            "submitter": submitterName,
+            "fundinglnUSD": currency,
+            "objectives": SciObjectives,
+            "starSystem": SciStar,
+            "startDate": sciStartDate,
+            "endDate": sciEndDate,
+            "telescopeLocation": teleScopeName,
+            "fileType": DropdownType,
+            "fileQuality": DropdownQuality,
+            "colorType": DropdownColor,
+            "contrast": Contrast,
+            "brightness": SciBrightness,
+            "saturation": SciSaturation,
+            "highlights": SciHighlights,
+            "exposure": SciExposure,
+            "shadows": SciShadows,
+            "whites": SciWhites,
+            "blacks": SciBlacks,
+            "luminance": SciLuminance,
+            "hue": SciHue
+
+        };
+
+        // แปลง JSON object เป็น string
+        let jsonData = JSON.stringify(data);
+
+        // ปริ้น JSON ออกมาใน console
+        console.log(jsonData);
+
+        // ส่ง JSON ไปยังเซิร์ฟเวอร์หรือทำอย่างอื่นต่อไปได้ตามต้องการ
+        // เช่น ส่งข้อมูล JSON ไปยัง API หรือฐานข้อมูล เพื่อบันทึกข้อมูล
+    });
+
+</script>
+</body>
+
+</html>
