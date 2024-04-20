@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Astronomer;
-import com.example.demo.model.ObservingProgramModel;
 import com.example.demo.model.SciencePlanModel;
 //import com.example.demo.repository.OCSRepository;
 import com.example.demo.repository.ObservingProgramRepository;
@@ -13,11 +12,9 @@ import edu.gemini.app.ocs.OCS;
 import edu.gemini.app.ocs.model.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -76,8 +73,11 @@ public class SciencePlanController {
         return ResponseEntity.ok(allSciencePlans);
     }
 
-
-
+    @CrossOrigin
+    @GetMapping("/hellowowowoow")
+    public void hellow(){
+        System.out.println("gitit");
+    }
 
     @CrossOrigin
     @PostMapping("/addsciplans")
