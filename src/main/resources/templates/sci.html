@@ -356,6 +356,65 @@
     // Call the function to fetch and display science plans data
     fetchSciencePlans();
 
+    // Function to fetch observing programs data
+    function fetchObservingPrograms() {
+        fetch(`/allObserving`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch observing programs');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const observingProgramsContainer = document.getElementById('observingProgramsBody');
+
+                // Clear any existing content
+                observingProgramsContainer.innerHTML = '';
+
+                // Create card containers for each observing program
+                for (let i = 0; i < data.length; i += 3) {
+                    const cardRow = document.createElement('div');
+                    cardRow.classList.add('card-row');
+
+                    // Add up to 3 observing programs in each row
+                    for (let j = i; j < Math.min(i + 3, data.length); j++) {
+                        const program = data[j];
+                        const card = document.createElement('div');
+                        card.classList.add('card');
+                        card.innerHTML = `
+                            <div class="card-header">
+                                <h3>Plan No: ${program.planNo}</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>Optics Primary: ${program.opticsPrimary}</p>
+                                <p>F Stop: ${program.fStop}</p>
+                                <p>Optics Secondary RMS: ${program.opticsSecondaryRMS}</p>
+                                <p>Science Fold Mirror Degree: ${program.scienceFoldMirrorDegree}</p>
+                                <p>Science Fold Mirror Type: ${program.scienceFoldMirrorType}</p>
+                                <p>Module Content: ${program.moduleContent}</p>
+                                <p>Calibration Unit: ${program.calibrationUnit}</p>
+                                <p>Light Type: ${program.lightType}</p>
+                                <p>Tele Position Pairs: ${JSON.stringify(program.telePositionPairs)}</p>
+                            </div>
+                            <div class="card-footer">
+                                <button class="edit-button">Edit</button>
+                                <button class="delete-button">Delete</button>
+                            </div>
+                        `;
+                        cardRow.appendChild(card);
+                    }
+
+                    observingProgramsContainer.appendChild(cardRow);
+                }
+            })
+            .catch(error => console.error('Error fetching observing programs:', error));
+    }
+
+    // Call the function to fetch and display observing programs data-->
+    fetchObservingPrograms();
+    // Call fetchObservingPrograms function after the page is fully loaded
+<!--    window.addEventListener('load', fetchObservingPrograms);-->
+
     // Event listener to display form when button is clicked
     document.addEventListener('click', function(event) {
         if (event.target.classList.contains('create-button')) {
@@ -386,6 +445,7 @@
             document.getElementById('planNo').value = planNo;
             // แสดง Modal
             document.getElementById('modalForm').style.display = 'block';
+            fetchObservingPrograms();
         }
     });
 
@@ -489,6 +549,7 @@
             alert('Observing Program created successfully.');
             // ปิด Modal
             document.getElementById('modalForm').style.display = 'none';
+            fetchObservingPrograms();
         })
         .catch(error => {
             console.error('There was a problem with your fetch operation:', error);
@@ -497,64 +558,7 @@
         });
     }
 
-
-    // Function to fetch observing programs data
-    function fetchObservingPrograms() {
-        fetch(`/allObserving`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to fetch observing programs');
-                }
-                return response.json();
-            })
-            .then(data => {
-                const observingProgramsContainer = document.getElementById('observingProgramsBody');
-
-                // Clear any existing content
-                observingProgramsContainer.innerHTML = '';
-
-                // Create card containers for each observing program
-                for (let i = 0; i < data.length; i += 3) {
-                    const cardRow = document.createElement('div');
-                    cardRow.classList.add('card-row');
-
-                    // Add up to 3 observing programs in each row
-                    for (let j = i; j < Math.min(i + 3, data.length); j++) {
-                        const program = data[j];
-                        const card = document.createElement('div');
-                        card.classList.add('card');
-                        card.innerHTML = `
-                            <div class="card-header">
-                                <h3>Plan No: ${program.planNo}</h3>
-                            </div>
-                            <div class="card-body">
-                                <p>Optics Primary: ${program.opticsPrimary}</p>
-                                <p>F Stop: ${program.fStop}</p>
-                                <p>Optics Secondary RMS: ${program.opticsSecondaryRMS}</p>
-                                <p>Science Fold Mirror Degree: ${program.scienceFoldMirrorDegree}</p>
-                                <p>Science Fold Mirror Type: ${program.scienceFoldMirrorType}</p>
-                                <p>Module Content: ${program.moduleContent}</p>
-                                <p>Calibration Unit: ${program.calibrationUnit}</p>
-                                <p>Light Type: ${program.lightType}</p>
-                                <p>Tele Position Pairs: ${JSON.stringify(program.telePositionPairs)}</p>
-                            </div>
-                            <div class="card-footer">
-                                <button class="edit-button">Edit</button>
-                                <button class="delete-button">Delete</button>
-                            </div>
-                        `;
-                        cardRow.appendChild(card);
-                    }
-
-                    observingProgramsContainer.appendChild(cardRow);
-                }
-            })
-            .catch(error => console.error('Error fetching observing programs:', error));
-    }
-
-    // Call the function to fetch and display observing programs data-->
     fetchObservingPrograms();
-
 
 </script>
 
