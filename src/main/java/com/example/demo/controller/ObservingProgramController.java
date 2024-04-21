@@ -100,4 +100,14 @@ public class ObservingProgramController {
         return ResponseEntity.ok(savedObservingProgram);
     }
 
+    @CrossOrigin
+    @GetMapping("/allObserving")
+    @ResponseBody
+    public List<ObservingProgramModel> showAllObservingPrograms() {
+        List<ObservingProgramModel> allObservingPrograms = observingProgramRepository.findAll();
+        return allObservingPrograms;
+    }
+
+
+
 }

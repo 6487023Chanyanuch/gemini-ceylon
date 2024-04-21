@@ -190,6 +190,43 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+        //card
+        .card-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px; /* Adjust as needed */
+}
+
+.card {
+    flex: 0 0 calc(33.33% - 20px); /* 3 cards per row with 20px margin between */
+    margin-right: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.card:last-child {
+    margin-right: 0;
+}
+
+.card-header {
+    background-color: #f2f2f2;
+    padding: 10px;
+    text-align: center;
+}
+
+.card-body {
+    padding: 10px;
+}
+
+.card-footer {
+    background-color: #f2f2f2;
+    padding: 10px;
+    text-align: center;
+}
+
     </style>
 </head>
 <body>
@@ -224,31 +261,8 @@
 </div>
 
 <h2>Observing Programs</h2>
-<div class="tbl-header">
-    <table cellpadding="0" cellspacing="0" border="0">
-        <thead>
-        <tr>
-            <th>Plan No</th>
-            <th>Optics Primary</th>
-            <th>F Stop</th>
-            <th>Optics Secondary RMS</th>
-            <th>Science Fold Mirror Degree</th>
-            <th>Science Fold Mirror Type</th>
-            <th>Module Content</th>
-            <th>Calibration Unit</th>
-            <th>Light Type</th>
-            <th>Tele Position Pairs</th>
-            <th>Action</th>
-        </tr>
-        </thead>
-    </table>
-</div>
-<div class="tbl-content">
-    <table cellpadding="0" cellspacing="0" border="0">
-        <tbody id="observingProgramsBody">
-        <!-- Data will be dynamically added here -->
-        </tbody>
-    </table>
+<div id="observingProgramsBody" class="card-container">
+    <!-- Data will be dynamically added here as cards -->
 </div>
 
 <!-- Modal form -->
@@ -485,8 +499,8 @@
 
 
     // Function to fetch observing programs data
-    function fetchObservingPrograms(userId) {
-        fetch(`/observing`) // Assuming this endpoint returns the observing programs JSON data for the given user ID
+    function fetchObservingPrograms() {
+        fetch(`/allObserving`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch observing programs');
@@ -494,32 +508,53 @@
                 return response.json();
             })
             .then(data => {
-                const observingProgramsBody = document.getElementById('observingProgramsBody');
+                const observingProgramsContainer = document.getElementById('observingProgramsBody');
 
-                // Clear any existing rows
-                observingProgramsBody.innerHTML = '';
+                // Clear any existing content
+                observingProgramsContainer.innerHTML = '';
 
-                // Iterate over the observing programs and create table rows
-                data.forEach(program => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${program.planNo}</td>
-                        <td>${program.opticsPrimary}</td>
-                        <td>${program.fStop}</td>
-                        <td>${program.opticsSecondaryRMS}</td>
-                        <td>${program.scienceFoldMirrorDegree}</td>
-                        <td>${program.scienceFoldMirrorType}</td>
-                        <td>${program.moduleContent}</td>
-                        <td>${program.calibrationUnit}</td>
-                        <td>${program.lightType}</td>
-                        <td>${JSON.stringify(program.telePositionPairs)}</td> <!-- Assuming telePositionPairs is an array of objects -->
-                        <td><button class="edit-button">Edit</button><button class="delete-button">Delete</button></td>
-                    `;
-                    observingProgramsBody.appendChild(row);
-                });
+                // Create card containers for each observing program
+                for (let i = 0; i < data.length; i += 3) {
+                    const cardRow = document.createElement('div');
+                    cardRow.classList.add('card-row');
+
+                    // Add up to 3 observing programs in each row
+                    for (let j = i; j < Math.min(i + 3, data.length); j++) {
+                        const program = data[j];
+                        const card = document.createElement('div');
+                        card.classList.add('card');
+                        card.innerHTML = `
+                            <div class="card-header">
+                                <h3>Plan No: ${program.planNo}</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>Optics Primary: ${program.opticsPrimary}</p>
+                                <p>F Stop: ${program.fStop}</p>
+                                <p>Optics Secondary RMS: ${program.opticsSecondaryRMS}</p>
+                                <p>Science Fold Mirror Degree: ${program.scienceFoldMirrorDegree}</p>
+                                <p>Science Fold Mirror Type: ${program.scienceFoldMirrorType}</p>
+                                <p>Module Content: ${program.moduleContent}</p>
+                                <p>Calibration Unit: ${program.calibrationUnit}</p>
+                                <p>Light Type: ${program.lightType}</p>
+                                <p>Tele Position Pairs: ${JSON.stringify(program.telePositionPairs)}</p>
+                            </div>
+                            <div class="card-footer">
+                                <button class="edit-button">Edit</button>
+                                <button class="delete-button">Delete</button>
+                            </div>
+                        `;
+                        cardRow.appendChild(card);
+                    }
+
+                    observingProgramsContainer.appendChild(cardRow);
+                }
             })
             .catch(error => console.error('Error fetching observing programs:', error));
     }
+
+    // Call the function to fetch and display observing programs data-->
+    fetchObservingPrograms();
+
 
 </script>
 
