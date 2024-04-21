@@ -331,7 +331,7 @@
                         <td>${plan.endDate}</td>
                         <td>${plan.telescopeLocation}</td>
                         <td>${plan.status}</td>
-                        <td><button class="create-button">Create Science Plan</button></td>
+                        <td><button class="create-button">Create Observing Program</button></td>
                     `;
                     sciencePlansBody.appendChild(row);
                 });
@@ -486,7 +486,7 @@
 
     // Function to fetch observing programs data
     function fetchObservingPrograms(userId) {
-        fetch(`/observing/1`) // Assuming this endpoint returns the observing programs JSON data for the given user ID
+        fetch(`/observing`) // Assuming this endpoint returns the observing programs JSON data for the given user ID
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch observing programs');
