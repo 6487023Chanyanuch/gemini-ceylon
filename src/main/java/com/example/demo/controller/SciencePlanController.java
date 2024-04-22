@@ -138,11 +138,22 @@ public class SciencePlanController {
 
 
     @CrossOrigin
-    @PostMapping("/testsciplans")
-    public ResponseEntity<SciencePlanModel> testSciencePlan(@RequestBody SciencePlanModel sciencePlan) {
-        SciencePlanModel savedSciencePlan = sciencePlanRepository.save((SciencePlan) sciencePlan);
-        ocs.testSciencePlan(savedSciencePlan);
-        return ResponseEntity.ok(savedSciencePlan);
+    @GetMapping ("/testsciplans/{id}")
+    public ResponseEntity<String> testSciencePlan(@PathVariable Long id) {
+        if (id != null) {
+            try {
+//                Long planNo = Long.parseLong(planNoStr);
+                SciencePlan sp = ocs.getSciencePlanByNo(Math.toIntExact(id));
+                String testResult = ocs.testSciencePlan(sp);
+//                String status = SciencePlan.STATUS.valueOf(String sp);
+//                System.out.println(testResult);
+                return ResponseEntity.ok(testResult);
+            } catch (NumberFormatException e) {
+                return ResponseEntity.badRequest().body("Invalid plan ID");
+            }
+        } else {
+            return ResponseEntity.badRequest().body("Plan ID is required");
+        }
     }
 
 }
