@@ -53,21 +53,36 @@ public class SciencePlanController {
         return ocs.getSciencePlanByNo(Math.toIntExact(id));
     }
 
-    @GetMapping("/sciplans/astronomer/{userId}")
-    public ResponseEntity<List<SciencePlan>> getSciencePlanByAstronomerById(@PathVariable Long userId) {
-        // Rest of your method implementation
-        Optional<List<SciencePlanModel>> sciencePlansOptional = sciencePlanService.getSciencePlanByAstronomerById(userId);
-        if (sciencePlansOptional.isEmpty()) {
-            return ResponseEntity.notFound().build();
+    @GetMapping("/sciplans/{userRole}/{userId}")
+    public ResponseEntity<List<SciencePlan>> getSciencePlansByUser(@PathVariable String userRole, @PathVariable Long userId) {
+        List<SciencePlan> filteredSciencePlans = new ArrayList<>();
+
+        switch (userRole) {
+            case "astronomer":
+                Optional<List<SciencePlanModel>> astronomerSciencePlansOptional = sciencePlanService.getSciencePlanByAstronomerById(userId);
+                if (astronomerSciencePlansOptional.isPresent()) {
+                    List<SciencePlanModel> astronomerSciencePlans = astronomerSciencePlansOptional.get();
+                    for (SciencePlanModel sciencePlanModel : astronomerSciencePlans) {
+                        SciencePlan sciplan = ocs.getSciencePlanByNo(sciencePlanModel.getPlanNum());
+                        filteredSciencePlans.add(sciplan);
+                    }
+                }
+                break;
+
+            case "ScienceObserver":
+                List<SciencePlan> allSciencePlans = ocs.getAllSciencePlans();
+                for (SciencePlan plan : allSciencePlans) {
+                    if (plan.getStatus().equals("TESTED")) {
+                        filteredSciencePlans.add(plan);
+                    }
+                }
+                break;
+
+            default:
+                return ResponseEntity.badRequest().build();
         }
-        List<SciencePlanModel> sciencePlans = sciencePlansOptional.get();
-        List<SciencePlan> allSciencePlans = sciencePlans.stream().map(sciencePlanModel -> {
-            // Fetch sciplan from osc based on science plan ID
-            // Assuming ocs.getSciencePlanByNo() fetches the sciplan by its ID
-            SciencePlan sciplan = ocs.getSciencePlanByNo(sciencePlanModel.getPlanNum());
-            return sciplan;
-        }).collect(Collectors.toList());
-        return ResponseEntity.ok(allSciencePlans);
+
+        return ResponseEntity.ok(filteredSciencePlans);
     }
 
     @GetMapping("/astro/{userId}")
