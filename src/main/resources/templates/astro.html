@@ -4,27 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Science Observer Page</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" /> -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
-
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,300;1,400;1,500;1,700;1,800;1,900&family=IBM+Plex+Sans+Thai+Looped:wght@100;200;300;400;500;600;700&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            outline: 0;
-            appearance: 0;
-            border: 0;
-            text-decoration: none;
-            list-style: none;
-            box-sizing: border-box;
-        }
-
         h1 {
             font-size: 30px;
             color: #fff;
@@ -42,6 +22,7 @@
         .tbl-header {
             background-color: #b7bdef;
             padding-right: 0;
+            /* Removed scrollbar width */
         }
 
         .tbl-content {
@@ -111,10 +92,8 @@
             background: #ffffff;
             user-select: none;
             overflow-x: hidden;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            margin-left: 10px;
         }
+
 
         section {
             margin: 50px;
@@ -186,20 +165,15 @@
         }
 
         .input-form {
-            padding: 20px;
-            margin: 5px;
-            font-size: 16px;
+            padding: 5px;
+            font-size: 20px;
         }
 
-        .input-form label {
+        .input-form input {
             width: 100px;
             font-size: 16px;
-            padding: 20px;
         }
 
-        .css-input-form {
-            padding: 5px;
-        }
 
         .close {
             color: #aaa;
@@ -217,6 +191,89 @@
 
 
         /* Test Style Form */
+
+        .zf-flLeft {
+            float: left;
+        }
+
+        .zf-flRight {
+            float: right;
+        }
+
+        .zf-clearBoth {
+            clear: both;
+        }
+
+        ol,
+        ul {
+            list-style: none outside none;
+        }
+
+        .zf-normalText {
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .zf-smallText {
+            font-size: 0.9em;
+            font-weight: normal;
+        }
+
+        .zf-smallHeading {
+            font-size: 18px;
+        }
+
+        .zf-heading {
+            font-size: 2em;
+        }
+
+        .zf-subHeading {
+            font-size: 1.5em;
+        }
+
+        .zf-boldText,
+        .zf-boldText a {
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .zf-italicText {
+            font-style: italic;
+        }
+
+        .zf-heading a {
+            text-decoration: underline;
+        }
+
+        .zf-heading a:hover {
+            text-decoration: none;
+        }
+
+        .zf-blodText {
+            font-weight: bold;
+        }
+
+        .zf-overAuto {
+            overflow: auto;
+        }
+
+        .zf-split {
+            color: #8B9193;
+            padding: 0 3px;
+        }
+
+        .zf-backgroundBg {
+            background: #f5f5f5;
+        }
+
+        .zf-templateWidth {
+            margin: 1% auto;
+        }
+
+        .zf-templateWidth {
+            width: 800px;
+        }
+
         .zf-templateWrapper {
             background: #fff;
             border: 1px solid #d6d6d6;
@@ -229,7 +286,6 @@
         }
 
         .zf-tempContDiv input[type="text"],
-        .zf-tempContDiv input[type="number"],
         .zf-tempContDiv textarea,
         .zf-tempContDiv .zf-pdfTextArea {
             background: #fff;
@@ -242,13 +298,11 @@
         }
 
         .zf-tempContDiv input[type="text"]:hover,
-        .zf-tempContDiv input[type="number"]:hover,
         .zf-tempContDiv textarea:hover {
             border: 1px solid rgba(157, 157, 157, 0.75) !important;
         }
 
         .zf-tempContDiv input[type="text"]:focus,
-        .zf-tempContDiv input[type="number"]:focus,
         .zf-tempContDiv textarea:focus {
             border: 1px solid rgba(121, 187, 238, 0.75) !important;
             -webkit-box-shadow: 0 0 5px rgba(82, 168, 236, 0.5) !important;
@@ -256,6 +310,14 @@
             box-shadow: 0 0 5px rgba(82, 168, 236, 0.5) !important;
         }
 
+        .zf-tempContDiv textarea {
+            height: 75px;
+        }
+
+        .arrangeAddress .zf-addrCont span.zf-addtwo {
+            width: 99% !important;
+            float: none !important;
+        }
 
         /**********Error Message***********/
         .zf-errorMessage {
@@ -272,6 +334,61 @@
             padding: 0;
             font-size: 13px !important;
         }
+
+        /**********instruction Message***********/
+        .zf-instruction {
+            color: #939393;
+            font-style: italic;
+            margin-top: 3px;
+            font-size: 12px;
+            overflow: visible !important;
+            word-break: break-all;
+            margin-bottom: 3px;
+        }
+
+        .zf-symbols {
+            padding: 0 5px;
+        }
+
+        .zf-overflow {
+            overflow: hidden;
+        }
+
+        /*****************template Header Starts Here****************/
+
+        .zf-tempHeadBdr {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .zf-tempHeadContBdr {
+            background: #494949;
+            border-bottom: 1px solid #EAEAEA;
+            margin: 0;
+            padding: 10px 25px;
+            -webkit-border-radius: 2px 2px 0 0;
+            -moz-border-radius: 2px 2px 0 0;
+            border-radius: 2px 2px 0 0;
+        }
+
+        .zf-tempHeadContBdr .zf-frmTitle {
+            color: #FFFFFF;
+            margin: 0;
+            padding: 0;
+            font-size: 2em;
+        }
+
+        .zf-tempHeadContBdr .zf-frmDesc {
+            color: #DDDDDD;
+            font-size: 14px;
+            font-weight: normal;
+            margin: 0;
+            padding: 0;
+        }
+
+        /****************template Header Ends Here****************/
+
 
         .zf-subContWrap {
             padding: 0;
@@ -301,6 +418,31 @@
             font-size: 13px;
         }
 
+        .zf-name .zf-tempContDiv span,
+        .zf-phone .zf-tempContDiv span,
+        .zf-time .zf-tempContDiv span {
+            float: left;
+            display: block;
+        }
+
+        .zf-name .zf-tempContDiv span {
+            margin-bottom: 5px;
+            margin-left: 4%;
+        }
+
+        .zf-name .zf-tempContDiv span.last {
+            margin-right: 0;
+        }
+
+        .zf-name .zf-tempContDiv span label {
+            display: block;
+            padding-top: 3px;
+        }
+
+        .zf-name .zf-tempContDiv input[type="text"] {
+            width: 100%;
+        }
+
 
         .zf-phone .zf-tempContDiv span label,
         .zf-date .zf-tempContDiv span label,
@@ -320,6 +462,148 @@
             color: #888888;
         }
 
+        .zf-phone .zf-tempContDiv span label {
+            display: block;
+            padding-top: 3px;
+            text-align: center;
+        }
+
+        .zf-phone .zf-tempContDiv .zf-symbols {
+            padding-top: 5px;
+        }
+
+
+        .zf-currency .zf-tempContDiv span {
+            display: inline-block;
+        }
+
+        .zf-currency .zf-tempContDiv span label {
+            display: block;
+            padding-top: 3px;
+        }
+
+        .zf-currency .zf-tempContDiv .zf-symbol {
+            font-size: 14px;
+            margin-left: 5px;
+            margin-top: 4px;
+            width: auto;
+            font-weight: bold;
+        }
+
+        .zf-decesion .zf-tempContDiv {
+            width: 100% !important;
+            margin-top: 4px;
+        }
+
+        .zf-decesion input[type="checkbox"] {
+            display: block;
+            height: 13px;
+            margin: 0;
+            padding: 0;
+            width: 13px;
+            float: left;
+            margin-top: 4px;
+        }
+
+        .zf-decesion label {
+            display: block;
+            line-height: 21px;
+            margin: 0px 0 0 25px !important;
+            padding-bottom: 0 !important;
+            width: 95% !important;
+            float: none !important;
+            line-height: 21px !important;
+            text-align: left !important;
+        }
+
+        .zf-tempContDiv input[type="file"] {
+            outline: none;
+            border: 1px solid #ccc;
+            margin: 0 auto;
+            padding: 5px;
+            width: auto;
+        }
+
+
+        .zf-address .zf-tempContDiv span,
+        .zf-geolocation .zf-tempContDiv span {
+            display: block;
+            padding-bottom: 15px;
+            margin-right: 2%;
+        }
+
+        .zf-address .zf-tempContDiv span label,
+        .zf-geolocation .zf-tempContDiv span label {
+            display: block;
+            padding-top: 3px;
+        }
+
+        .zf-address .zf-tempContDiv .zf-addOne,
+        .zf-geolocation .zf-tempContDiv .zf-addOne {
+            float: none;
+            padding-bottom: 15px;
+            margin-right: 0;
+        }
+
+        .zf-address .zf-tempContDiv .zf-addOne input,
+        .zf-geolocation .zf-tempContDiv .zf-addOne input {
+            width: 98%;
+        }
+
+        .zf-address .zf-tempContDiv span.zf-addtwo,
+        .zf-geolocation .zf-tempContDiv span.zf-addtwo {
+            width: 48%;
+        }
+
+        .zf-address .zf-tempContDiv span.zf-addtwo input,
+        .zf-geolocation .zf-tempContDiv span.zf-addtwo input {
+            width: 99%;
+        }
+
+        .zf-address .zf-tempContDiv span.zf-addtwo .zf-form-sBox {
+            width: 100%;
+        }
+
+        .zf-signContainer {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        .zf-signContainer canvas {
+            cursor: crosshair;
+            border: 1px solid #ccc;
+            background: #fff;
+        }
+
+        .zf-signContainer a {
+            font-size: 11px;
+            text-decoration: underline;
+            display: block;
+        }
+
+        .zf-section h2 {
+            border-bottom: 1px solid #D7D7D7;
+            font-size: 22px;
+            color: #000;
+            font-weight: 500;
+            font-family: 'Open Sans', "Lucida Grande", Arial, Helvetica, sans-serif;
+            padding-bottom: 10px;
+        }
+
+        .zf-section p {
+            color: #847F7F;
+            margin-top: 10px;
+        }
+
+        .zf-note .zf-labelName {
+            padding-top: 7px;
+        }
+
+        .zf-templateWrapper .zf-note {
+            overflow: hidden;
+        }
+
         .zf-date .zf-tempContDiv span label {
             display: block;
             padding-top: 3px;
@@ -334,10 +618,173 @@
             text-align: left !important;
         }
 
+        .zf-time .zf-tempContDiv span label {
+            display: block;
+            padding-top: 3px;
+            text-align: center;
+        }
+
+        .zf-time .zf-tempContDiv .zf-form-sBox {
+            min-width: 58px;
+        }
+
+        .zf-time .zf-tempContDiv .zf-symbols {
+            padding-top: 5px;
+        }
+
+        .zf-tempContDiv input[type="checkbox"],
+        .zf-tempContDiv input[type="radio"] {
+            display: block;
+            height: 13px;
+            margin: 4px 0 0;
+            padding: 0;
+            width: 13px;
+        }
+
+        .zf-radio .zf-overflow,
+        .zf-checkbox .zf-overflow {
+            padding-left: 2px !important;
+        }
+
+        .zf-sideBySide .zf-tempContDiv span {
+            margin: 0 15px 5px 0;
+            padding: 0;
+            width: auto;
+            float: left;
+            display: block;
+        }
+
+        .zf-sideBySide .zf-tempContDiv span input[type="checkbox"] {
+            display: block;
+            width: 13px;
+            height: 13px;
+            padding: 0;
+            margin-top: 3px;
+            float: left;
+        }
+
+        .zf-sideBySide .zf-tempContDiv span input[type="radio"] {
+            display: block;
+            width: 13px;
+            height: 13px;
+            margin-top: 4px;
+            padding: 0;
+            float: left;
+        }
+
+        .zf-sideBySide .zf-tempContDiv span label {
+            line-height: 21px;
+            display: block;
+            margin: 0 0 0 20px;
+            padding: 0 0 5px;
+        }
+
+
+        .zf-oneColumns .zf-tempContDiv span {
+            margin: 0 0 13px 0;
+            padding: 0;
+            width: 100%;
+            display: block;
+            clear: both;
+        }
+
+        .zf-oneColumns .zf-tempContDiv span:last-child {
+            margin-bottom: 0;
+        }
+
+        .zf-oneColumns .zf-tempContDiv span input[type="checkbox"] {
+            display: block;
+            width: 13px;
+            height: 13px;
+            margin: 0;
+            padding: 0;
+            margin-top: 3px;
+            float: left;
+        }
+
+        .zf-oneColumns .zf-tempContDiv span input[type="radio"] {
+            display: block;
+            width: 13px;
+            height: 13px;
+            margin-top: 4px;
+            padding: 0;
+            float: left;
+        }
+
+        .zf-oneColumns .zf-tempContDiv span label {
+            line-height: 19px;
+            display: block;
+            margin: 0 0 0 20px;
+            padding: 0;
+            font-size: 13px;
+        }
+
+        .zf-twoColumns .zf-tempContDiv span {
+            margin: 0 5px 13px 0;
+            width: 48%;
+            float: left;
+            display: block;
+        }
+
+        .zf-twoColumns .zf-tempContDiv span input[type="checkbox"] {
+            display: block;
+            width: 13px;
+            height: 13px;
+            margin: 0;
+            padding: 0;
+            margin-top: 3px;
+            float: left;
+        }
+
+        .zf-twoColumns .zf-tempContDiv span input[type="radio"] {
+            display: block;
+            width: 13px;
+            height: 13px;
+            margin-top: 4px;
+            padding: 0;
+            float: left;
+        }
+
+        .zf-twoColumns .zf-tempContDiv span label {
+            line-height: 21px;
+            display: block;
+            margin: 0 0 0 20px;
+            padding: 0 0 5px;
+        }
+
+        .zf-threeColumns .zf-tempContDiv span {
+            margin: 0 5px 13px 0;
+            width: 30%;
+            float: left;
+        }
+
+        .zf-threeColumns .zf-tempContDiv span input[type="checkbox"] {
+            display: block;
+            width: 13px;
+            height: 13px;
+            padding: 0;
+            margin-top: 3px;
+            float: left;
+        }
+
+        .zf-threeColumns .zf-tempContDiv span input[type="radio"] {
+            display: block;
+            width: 13px;
+            height: 13px;
+            margin-top: 4px;
+            padding: 0;
+            float: left;
+        }
+
+        .zf-threeColumns .zf-tempContDiv span label {
+            line-height: 21px;
+            display: block;
+            margin: 0 0 0 20px;
+            padding: 0 0 5px;
+        }
 
         .zf-mSelect select {
             font-size: 13px;
-            font-family: "Alegreya Sans", sans-serif;
         }
 
         .zf-fmFooter {
@@ -368,6 +815,266 @@
 
         .zf-submitColor:hover {
             background-color: #111e88;
+        }
+
+        /****************Field Small/Medium/Large Starts Here****************/
+
+        .zf-small .zf-tempContDiv input[type="text"],
+        .zf-small .zf-tempContDiv textarea,
+        .zf-small .zf-mSelect select,
+        .zf-small .zf-tempContDiv .zf-sliderCont,
+        .zf-small .zf-tempContDiv .zf-pdfTextArea,
+        .zf-small .zf-signContainer {
+            width: 50%;
+        }
+
+        .zf-medium .zf-tempContDiv input[type="text"],
+        .zf-medium .zf-tempContDiv textarea,
+        .zf-medium .zf-mSelect select,
+        .zf-medium .zf-tempContDiv .zf-sliderCont,
+        .zf-medium .zf-tempContDiv .zf-pdfTextArea,
+        .zf-medium .zf-signContainer {
+            width: 75%;
+        }
+
+        .zf-large .zf-tempContDiv input[type="text"],
+        .zf-large .zf-tempContDiv textarea,
+        .zf-large .zf-mSelect select,
+        .zf-large .zf-tempContDiv .zf-sliderCont,
+        .zf-large .zf-tempContDiv .zf-pdfTextArea,
+        .zf-large .zf-signContainer {
+            width: 100%;
+        }
+
+        .signContainer canvas {
+            width: 100%;
+        }
+
+
+        .zf-small .zf-tempContDiv .zf-form-sBox {
+            width: 50%;
+        }
+
+        .zf-medium .zf-tempContDiv .zf-form-sBox {
+            width: 75%;
+        }
+
+        .zf-large .zf-tempContDiv .zf-form-sBox {
+            width: 100%;
+        }
+
+
+        .zf-name .zf-tempContDiv .zf-form-sBox {
+            width: 100%;
+        }
+
+        .zf-namesmall .zf-nameWrapper {
+            width: 50%;
+        }
+
+        .zf-namesmall .zf-tempContDiv span {
+            width: 48%;
+        }
+
+        .zf-namesmall .zf-oneType .zf-salutationWrapper span {
+            width: 63%;
+        }
+
+        .zf-namesmall .zf-oneType .zf-salutationWrapper .zf-salutation {
+            width: 33%;
+        }
+
+        .zf-namesmall .zf-twoType .zf-salutationWrapper span {
+            width: 34%;
+            margin-left: 3%;
+        }
+
+        .zf-namesmall .zf-twoType .zf-salutationWrapper .zf-salutation {
+            width: 26%;
+        }
+
+        .zf-namesmall .zf-threeType .zf-nameWrapper span {
+            width: 32%;
+            margin-left: 2%;
+        }
+
+        .zf-namesmall .zf-threeType .zf-salutationWrapper span {
+            width: 100%;
+            margin-left: 0px;
+            float: none;
+            margin-left: 0;
+        }
+
+        .zf-namesmall .zf-threeType .zf-salutationWrapper .zf-salutation {
+            width: 50%;
+        }
+
+
+        .zf-namesmall .zf-tempContDiv span:first-child {
+            margin-left: 0;
+        }
+
+        .zf-leftAlign .zf-namesmall .zf-threeType .zf-salutationWrapper span,
+        .zf-rightAlign .zf-namesmall .zf-threeType .zf-salutationWrapper span {
+            width: 100%;
+            margin-left: 0px;
+            float: none;
+            margin-left: 0;
+        }
+
+        .zf-leftAlign .zf-namesmall .zf-threeType .zf-salutationWrapper .zf-salutation,
+        .zf-rightAlign .zf-namesmall .zf-threeType .zf-salutationWrapper .zf-salutation {
+            width: 50%;
+        }
+
+
+
+
+        .zf-namemedium .zf-nameWrapper {
+            width: 75%;
+        }
+
+        .zf-namemedium .zf-tempContDiv span {
+            width: 49%;
+            margin-left: 2%;
+        }
+
+
+
+        .zf-namemedium .zf-oneType .zf-salutationWrapper span {
+            width: 73%;
+        }
+
+        .zf-namemedium .zf-oneType .zf-salutationWrapper .zf-salutation {
+            width: 25%;
+        }
+
+        .zf-namemedium .zf-twoType .zf-salutationWrapper span {
+            width: 38%;
+            margin-left: 2%;
+        }
+
+        .zf-namemedium .zf-twoType .zf-salutationWrapper .zf-salutation {
+            width: 20%;
+        }
+
+
+        .zf-namemedium .zf-threeType .zf-nameWrapper span {
+            width: 32%;
+            margin-left: 2%;
+        }
+
+
+        .zf-namemedium .zf-threeType .zf-salutationWrapper span {
+            width: 25%;
+            margin-left: 2%;
+        }
+
+        .zf-namemedium .zf-threeType .zf-salutationWrapper .zf-salutation {
+            width: 19%;
+        }
+
+        .zf-namemedium .zf-tempContDiv span:first-child {
+            margin-left: 0;
+        }
+
+        .zf-namelarge .zf-tempContDiv span {
+            width: 23.5%;
+            margin-left: 2%;
+            margin-right: 0;
+            margin-bottom: 0;
+        }
+
+        .zf-namelarge .zf-twoType .zf-nameWrapper span {
+            width: 49%;
+            margin-left: 2%;
+        }
+
+        .zf-namelarge .zf-threeType .zf-nameWrapper span {
+            width: 32%;
+            margin-left: 2%;
+        }
+
+
+        .zf-namelarge .zf-twoType .zf-salutationWrapper span {
+            width: 40%;
+            margin-left: 2%;
+        }
+
+        .zf-namelarge .zf-twoType .zf-salutationWrapper .zf-salutation {
+            width: 16%;
+        }
+
+        .zf-namelarge .zf-threeType .zf-salutationWrapper span {
+            width: 26%;
+            margin-left: 2%;
+        }
+
+        .zf-namelarge .zf-threeType .zf-salutationWrapper .zf-salutation {
+            width: 16%;
+        }
+
+        .zf-namelarge .zf-oneType .zf-salutationWrapper span {
+            width: 73%;
+            margin-left: 2%;
+        }
+
+        .zf-namelarge .zf-oneType .zf-salutationWrapper .zf-salutation {
+            width: 25%;
+        }
+
+        .zf-namelarge .zf-tempContDiv span:first-child {
+            margin-left: 0 !important;
+        }
+
+
+
+        .zf-csmall .zf-tempContDiv input[type="text"] {
+            width: 43%;
+        }
+
+        .zf-cmedium .zf-tempContDiv input[type="text"] {
+            width: 67%;
+        }
+
+        .zf-clarge .zf-tempContDiv input[type="text"] {
+            width: 91%;
+        }
+
+        .zf-nsmall .zf-tempContDiv input[type="text"] {
+            width: 50%;
+        }
+
+        .zf-nmedium .zf-tempContDiv input[type="text"] {
+            width: 75%;
+        }
+
+        .zf-nlarge .zf-tempContDiv input[type="text"] {
+            width: 100%;
+        }
+
+        .zf-signSmall .zf-tempContDiv .zf-signContainer .zf-signArea {
+            width: 49%;
+        }
+
+        .zf-signMedium .zf-tempContDiv .zf-signContainer .zf-signArea {
+            width: 60%;
+        }
+
+        .zf-signLarge .zf-tempContDiv .zf-signContainer .zf-signArea {
+            width: 74%;
+        }
+
+        .zf-addrsmall .zf-tempContDiv .zf-addrCont {
+            width: 50%;
+        }
+
+        .zf-addrmedium .zf-tempContDiv .zf-addrCont {
+            width: 75%;
+        }
+
+        .zf-addrlarge .zf-tempContDiv .zf-addrCont {
+            width: 100%;
         }
 
 
@@ -404,6 +1111,10 @@
             margin-top: 6px;
         }
 
+        .zf-leftAlign .zf-decesion .zf-tempContDiv,
+        .zf-rightAlign .zf-decesion .zf-tempContDiv {
+            margin-left: 0 !important;
+        }
 
         .zf-rightAlign {
             display: block;
@@ -420,50 +1131,364 @@
         .zf-rightAlign .zf-tempFrmWrapper .zf-tempContDiv {
             margin-left: 35%;
         }
+
+        .zf-matrixTable {
+            font-size: 13px;
+            overflow-x: scroll;
+            padding-bottom: 15px !important;
+        }
+
+        .zf-matrixTable table th,
+        .zf-matrixTable table td {
+            padding: 10px;
+        }
+
+        .zf-matrixTable thead th,
+        .zf-matrixTable table td {
+            text-align: center;
+        }
+
+        .zf-matrixTable table td input[type="radio"],
+        .zf-matrixTable table td input[type="checkbox"] {
+            display: inline-block;
+        }
+
+        .zf-matrixTable tbody th {
+            font-weight: normal;
+            font-size: 13px;
+            text-align: left;
+        }
+
+        .zf-matrixTable thead th {
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        /****************Form Top Align Starts Here****************/
+
+        .zf-termsContainer {
+            margin: 0;
+            padding: 0;
+        }
+
+        .zf-termsContainer .zf-termsMsg {
+            border: 1px solid #E1E1E1;
+            max-height: 250px;
+            min-height: 70px;
+            overflow-y: scroll;
+            padding: 10px;
+            margin-bottom: 6px;
+        }
+
+        .zf-termsContainer .zf-termScrollRemove {
+            border: 1px solid #E1E1E1;
+            padding: 10px;
+            margin-bottom: 6px;
+        }
+
+        .zf-termsAccept {
+            margin-top: 2px !important;
+        }
+
+        .zf-termsAccept input[type="checkbox"] {
+            margin-top: 2px !important;
+            float: left;
+        }
+
+        .zf-termsAccept label {
+            margin-left: 20px;
+            font-size: 13px;
+            float: none;
+            display: block;
+        }
+
+        .zf-termsWrapper .zf-tempContDiv {
+            margin-left: 0 !important;
+        }
+
+        .zf-termsWrapper .zf-labelName {
+            width: 100% !important;
+            text-align: left !important;
+            padding-bottom: 8px !important;
+        }
+
+
+        .zf-medium .zf-phwrapper {
+            width: 75%;
+        }
+
+        .zf-phwrapper.zf-phNumber span {
+            width: 100% !important;
+        }
+
+        .zf-phwrapper span:first-child {
+            margin-left: 0;
+            width: 22%;
+        }
+
+        .zf-phwrapper label {
+            display: block;
+            color: #888888;
+            font-size: 11px;
+            margin-top: 2px;
+        }
+
+        .zf-medium .zf-phonefld input[type="text"],
+        .zf-small .zf-phonefld input[type="text"] {
+            width: 100%;
+        }
+
+        .zf-small .zf-phwrapper {
+            width: 50%;
+        }
+
+        .zf-tempFrmWrapper.zf-phone span {
+            width: auto;
+            margin: inherit;
+        }
+
+        .zf-phwrapper span {
+            margin-bottom: 10px;
+            float: left;
+            width: 76%;
+            margin-left: 2%;
+        }
+
+        .zf-descFld a {
+            text-decoration: underline;
+        }
+
+        .zf-descFld em {
+            font-style: italic;
+        }
+
+        .zf-descFld b {
+            font-weight: bold;
+        }
+
+        .zf-descFld i {
+            font-style: italic;
+        }
+
+        .zf-descFld u {
+            text-decoration: underline;
+        }
+
+        .zf-descFld ul {
+            margin: auto;
+        }
+
+        .zf-descFld ul {
+            list-style: disc;
+        }
+
+        .zf-descFld ol {
+            list-style: decimal;
+        }
+
+        .zf-descFld ul,
+        .zf-descFld ol {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .zf-descFld ol.code {
+            list-style-position: outside;
+            list-style-type: decimal;
+            padding: 0 30px;
+        }
+
+        .zf-descFld ol.code li {
+            background-color: #F5F5F5;
+            border-left: 2px solid #CCCCCC;
+            margin: 1px 0;
+            padding: 2px;
+        }
+
+        .zf-descFld blockquote.zquote {
+            border-left: 3px solid #EFEFEF;
+            padding-left: 35px;
+        }
+
+        .zf-descFld blockquote.zquote span.txt {
+            -moz-user-focus: ignore;
+            -moz-user-input: disabled;
+            -moz-user-select: none;
+            color: #058BC2;
+            float: left;
+            font: bold 50px Arial, Helvetica, sans-serif;
+            margin: -10px 0 0 -30px;
+        }
+
+        .zf-descFld blockquote.block_quote {
+            background: url("../images/newQuote.gif") no-repeat scroll 12px 10px rgba(0, 0, 0, 0);
+            border-left: 3px solid #EFEFEF;
+            font: 13px/20px georgia, Arial, verdana, Helvetica, sans-serif;
+            margin: 15px 3px 15px 15px;
+            padding: 10px 10px 10px 40px;
+        }
+
+        .zf-descFld body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 13px;
+            margin: 8px;
+        }
+
+        .note .noteCont {
+            overflow: hidden;
+        }
+
+        .note .zf-descFld {
+            overflow: hidden;
+            font-size: 13px;
+        }
+
+        .custom-button {
+            background-color: palevioletred;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .but-test {
+            background-color: #C70039;
+            color: white;
+            font-size: 1.5em;
+            border: 2px solid #C70039;
+            border-radius: 20px;
+            padding: 10px 20px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+        }
+
+
+
+        #popup {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 1px solid black;
+            padding: 20px;
+            z-index: 100;
+            overflow-y: scroll;
+            width: 750px;
+            height: 750px;
+        }
+
+        #popup .popup-content {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            height: 400px;
+            overflow-y: auto;
+            width: 700px;
+            height: 700px;
+        }
+
+        #popup .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
+
+
+
 </head>
 
 <body>
-
 <div class="container">
+    <h2>Science Plans 📖</h2>
+    <div><button class="create-button">Create Science Plan</button> </div>
+    <br>
+    <div class="tbl-header">
+        <table cellpadding="0" cellspacing="0" border="0">
+            <thead>
+            <tr>
+                <th>Plan No</th>
+                <th>Creator</th>
+                <th>Submitter</th>
+                <th>Funding (USD)</th>
+                <th>Objectives</th>
+                <th>Star System</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Telescope Location</th>
+                <th>Status</th>
+                <th>Action</th> <!-- New column header -->
+            </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="tbl-content">
+        <table cellpadding="0" cellspacing="0" border="0">
+            <tbody id="sciencePlansBody">
+            <!-- Data will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
 
-    <main>
-        <h2>Science Plans</h2>
-        <div><button class="create-button">Create Science Plan</button> </div>
-        <br>
-        <div class="tbl-header">
-            <table cellpadding="0" cellspacing="0" border="0">
-                <thead>
-                <tr>
-                    <th>Plan No</th>
-                    <th>Creator</th>
-                    <th>Submitter</th>
-                    <th>Funding (USD)</th>
-                    <th>Objectives</th>
-                    <th>Star System</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Telescope Location</th>
-                    <th>Status</th>
-                    <th>Action</th> <!-- New column header -->
-                </tr>
-                </thead>
-            </table>
-        </div>
-        <div class="tbl-content">
-            <table cellpadding="0" cellspacing="0" border="0">
-                <tbody id="sciencePlansBody">
-                <!-- Data will be dynamically added here -->
-                </tbody>
-            </table>
-        </div>
+    <br>
+    <br>
+    <h2>🥳 Science Plans has been TESTED 🥳</h2>
+    <div class="tbl-header">
+        <table cellpadding="0" cellspacing="0" border="0">
+            <thead>
+            <tr>
+                <th>Plan No</th>
+                <th>Creator</th>
+                <th>Submitter</th>
+                <th>Funding (USD)</th>
+                <th>Objectives</th>
+                <th>Star System</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Telescope Location</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="tbl-content">
+        <table cellpadding="0" cellspacing="0" border="0">
+            <tbody id="sciencePlansBody2">
+            <!-- Data will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<!-- Modal form -->
+<!-- Modal form Create Sci Plan-->
 <div id="modalForm" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
-
         <form id="sciencePlanForm">
             <div class="zf-subContWrap zf-leftAlign">
                 <ul>
@@ -747,7 +1772,8 @@
                     </label>
                         <div class="zf-tempContDiv">
                             <span> <input id="astronomerID" type="number" name="astronomerID" /></span>
-                            <p id="astronomerID_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                            <p id="astronomerID_error" class="zf-errorMessage" style="display:none;">Invalid value
+                            </p>
                         </div>
                         <div class="zf-clearBoth"></div>
                     </li>
@@ -760,18 +1786,22 @@
                 <li class="zf-fmFooter"><button id="myButton" type="submit" value="Submit" class="zf-submitColor">
                     CREATE </button></li>
             </ul>
-    </div>
     <!-- 'zf-templateWrapper' ends -->
 
     </form>
-</div>
+    </div>
 </div>
 
-</main>
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <span id="close-popup" class="close">&times;</span>
+        <div id="creatorInfo"></div>
+    </div>
+</div>
 
 
 <script>
-    // Function to fetch the User ID with proper return
+
     async function fetchUserId() {
         try {
             const response = await fetch('/userId'); // Fetching User ID from endpoint
@@ -785,43 +1815,87 @@
             throw error; // Re-throw error to be handled further
         }
     }
-    // Call the function to fetch and display the user ID
+
     // Function to fetch science plans data
     async function fetchSciencePlans(userId) {
-        try {
-            const response = await fetch(`/sciplans/astronomer/${userId}`); // Use User ID to fetch science plans
+        try{
+            const response = await fetch(`/sciplans/astronomer/${userId}`);
             if (!response.ok) {
-                throw new Error('Failed to fetch Science Plans'); // Check if response is okay
+                throw new Error('Failed to fetch Science Plans');
             }
-            const data = await response.json(); // Parse JSON response
-            const sciencePlansBody = document.getElementById('sciencePlansBody');
+            const data = await response.json();
+            const sciencePlanBody = document.getElementById('sciencePlansBody');
 
-            // Clear any existing rows
             sciencePlansBody.innerHTML = '';
 
-            // Populate the table with new data
+            // Iterate over the science plans and create table rows
             data.forEach(plan => {
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                <td>${plan.planNo}</td>
-                <td>${plan.creator}</td>
-                <td>${plan.submitter}</td>
-                <td>${plan.fundingInUSD}</td>
-                <td>${plan.objectives}</td>
-                <td>${plan.starSystem}</td>
-                <td>${plan.startDate}</td>
-                <td>${plan.endDate}</td>
-                <td>${plan.telescopeLocation}</td>
-                <td>${plan.status}</td>
-                <td><button class="create-button">Test</button></td>
-            `;
-                sciencePlansBody.appendChild(row); // Add new row to the table
+                        <td>${plan.planNo}</td>
+                        <td>${plan.creator}</td>
+                        <td>${plan.submitter}</td>
+                        <td>${plan.fundingInUSD}</td>
+                        <td>${plan.objectives}</td>
+                        <td>${plan.starSystem}</td>
+                        <td>${plan.startDate}</td>
+                        <td>${plan.endDate}</td>
+                        <td>${plan.telescopeLocation}</td>
+                        <td>${plan.status}</td>
+                        <td>
+                         <button class="custom-button" data-plan-id="${plan.planNo}">Test</button>
+                        </td>
+
+                    `;
+                row.querySelector('button').addEventListener('click', () => {
+                    const creatorInfo = document.getElementById('creatorInfo');
+                    // const sciplan = data.find(p => p.id === row.dataset.planId);
+                    const sciplan = data.find(p => p.planNo === plan.planNo);
+
+                    creatorInfo.innerHTML = `
+                           <h2 style="text-align: center;"><span style="font-weight: bold;color:#C70039;"> Test Science Plan </span></h2>
+                           <p style=" font-size: 1.1em;"><span style="font-weight: bold;color:#2471A3;">Plan No:</span> ${sciplan.planNo}</p>
+                           <p style=" font-size: 1.1em;"><span style="font-weight: bold;color:#2471A3;">Creator:</span> ${sciplan.creator}</p>
+                           <p style=" font-size: 1.1em;"><span style="font-weight: bold;color:#2471A3;">Submitter:</span> ${sciplan.submitter}</p>
+                           <p style=" font-size: 1.1em;"><span style="font-weight: bold;color:#2471A3;">Funding (USD):</span>  ${sciplan.fundingInUSD}</p>
+                           <p style=" font-size: 1.1em;"><span style="font-weight: bold;color:#2471A3;">Objectives:</span>  ${sciplan.objectives}</p>
+                           <p style=" font-size: 1.1em;"><span style="font-weight: bold;color:#2471A3;">Star System:</span>  ${sciplan.starSystem}</p>
+                           <p style=" font-size: 1.1em;"><span style="font-weight: bold;color:#2471A3;">Start Date:</span>  ${sciplan.startDate}</p>
+                           <p style=" font-size: 1.1em;"><span style="font-weight: bold;color:#2471A3;">End Date:</span>  ${sciplan.endDate}</p>
+                           <p style=" font-size: 1.1em;"><span style="font-weight: bold;color:#2471A3;">Telescope Location:</span>  ${sciplan.telescopeLocation}</p>
+                           <p style=" font-size: 1.1em;"><span style="font-weight: bold;color:#2471A3;">Status:</span>  ${sciplan.status}</p>
+                           <p style=" font-size: 1.1em;"><span style="font-weight: bold;color:#2471A3;">Data Processing Requirements:</span> </p>
+                            <ul>
+                                ${sciplan.dataProcRequirements.map(req => `
+                                    <p style=" font-size: 1.0em;"><span style="font-weight: bold;">File Type: </span>${req.fileType}</p>
+                                    <p style=" font-size: 1.1em;"><span style="font-weight: bold;">File Quality: </span>${req.fileQuality}</p>
+                                    <p style=" font-size: 1.1em;"><span style="font-weight: bold;">Color Type: </span>${req.colorType}</p>
+                                    <p style=" font-size: 1.1em;"><span style="font-weight: bold;">Contrast: </span>${req.contrast}</p>
+                                    <p style=" font-size: 1.1em;"><span style="font-weight: bold;">Brightness: </span>${req.brightness}</p>
+                                    <p style=" font-size: 1.1em;"><span style="font-weight: bold;">Saturation: </span>${req.saturation}</p>
+                                    <p style=" font-size: 1.1em;"><span style="font-weight: bold;">Highlights: </span>${req.highlights}</p>
+                                    <p style=" font-size: 1.1em;"><span style="font-weight: bold;">Exposure: </span>${req.exposure}</p>
+                                    <p style=" font-size: 1.1em;"><span style="font-weight: bold;">Shadows: </span>${req.shadows}</p>
+                                    <p style=" font-size: 1.1em;"><span style="font-weight: bold;">Whites: </span>${req.whites}</p>
+                                    <p style=" font-size: 1.1em;"><span style="font-weight: bold;">Blacks: </span>${req.blacks}</p>
+                                    <p style=" font-size: 1.1em;"><span style="font-weight: bold;">Luminance: </span>${req.luminance}</p>
+                                    <p style=" font-size: 1.1em;"><span style="font-weight: bold;">Hue: </span>${req.hue}</p>
+                                `).join('')}
+                            </ul>
+                            <button class="but-test" data-plan-id="${plan.planNo}" onclick="handleTestButtonClick(event)">Test</button>
+
+                    `;
+                    // Display the pop-up
+                    document.getElementById('popup').style.display = 'block';
+                });
+                sciencePlansBody.appendChild(row);
             });
-        } catch (error) {
+
+        }catch (error) {
             console.error('Error fetching Science Plans:', error); // Handle errors
         }
     }
-    // Get User ID and then fetch Science Plans
+
     (async function initialize() {
         try {
             const userId = await fetchUserId(); // Fetch User ID asynchronously
@@ -830,6 +1904,237 @@
             console.error('Error initializing:', error); // Handle any initialization error
         }
     })();
+
+
+    document.getElementById('close-popup').addEventListener('click', closePopUp);
+    document.getElementById('popup').addEventListener('click', function(event) {
+        if (event.target.id === 'popup') {
+            closePopUp();
+        }
+    });
+
+    function closePopUp() {
+        document.getElementById('popup').style.display = 'none';
+    }
+
+    window.addEventListener('load', closePopUp);
+
+    function handleTestButtonClick(event) {
+
+        const planIdElement = event.currentTarget.dataset.planId;
+        const planId = Number(planIdElement);
+
+        console.log('Plan ID:', planId);
+        console.log('Data Type:', typeof planId);
+
+        if (isNaN(planId)) {
+            console.error('Invalid plan ID');
+            return;
+        }
+
+        fetch(`/testsciplans/${planId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                return response.text();
+            })
+            .then(data => {
+                console.log('Finished:', data);
+
+                const parts = data.split('\nTEST RESULTS:');
+                console.log('parts:', parts);
+
+                const testDataText = parts.length > 1 ? parts[1].trim() : '';
+                console.log('testDataText:', testDataText);
+
+                const lines = testDataText.split('\n');
+
+                const testDataDict = {};
+
+                lines.forEach(line => {
+                    const [key, value] = line.split(': ');
+
+                    if (key.trim() === 'Duration' && !value.includes('OK')) {
+                        testDataDict[key.trim()] = "Date conflicts with Science Plan that has already been tested.";
+                    } else {
+                        testDataDict[key.trim()] = value.trim();
+                    }
+                });
+
+                console.log(testDataDict);
+
+                let message = '𝗧𝗘𝗦𝗧 𝗥𝗘𝗦𝗨𝗟𝗧𝗦:\n';
+                for (const [key, value] of Object.entries(testDataDict)) {
+                    if (key === 'Duration' && value !== 'OK') {
+                        message += `${key}: ❌ {${value}}\n`;
+                    } else {
+                        const symbol = value === 'ERROR' ? '❌' : '✅';
+                        message += `${key}: ${symbol}\n`;
+                    }
+                }
+                alert(message);
+
+                document.getElementById('popup').style.display = 'none';
+
+
+                const rows = Array.prototype.slice.call(sciencePlansBody.querySelectorAll('tr'));
+                console.log("rows: " + rows);
+
+                rows.forEach((row, index) => {
+                    const cells = Array.from(row.querySelectorAll('td'));
+                    const cellValues = cells.map(cell => cell.textContent);
+
+                    // Access the value at index 9 in each row
+                    const savedValue = cellValues[9];
+                    console.log(`Value at index 9 in row ${index}:`, savedValue);
+
+                    if (savedValue === "TESTED") {
+                        // Remove the row from the first table
+                        row.remove();
+                        console.log(`Row with planId ${planId} removed from sciencePlansBody`);
+
+                        // Fetch the plan data again
+                        const planNo = cellValues[0]; // Assuming planNo is in the first column
+                        fetch(`/sciplans/${planNo}`)
+                            .then(response => response.json())
+                            .then(plan => {
+                                // Create a new row for the second table
+                                const newRow = document.createElement('tr');
+                                newRow.innerHTML = `
+                                                <td>${plan.planNo}</td>
+                                                <td>${plan.creator}</td>
+                                                <td>${plan.submitter}</td>
+                                                <td>${plan.fundingInUSD}</td>
+                                                <td>${plan.objectives}</td>
+                                                <td>${plan.starSystem}</td>
+                                                <td>${plan.startDate}</td>
+                                                <td>${plan.endDate}</td>
+                                                <td>${plan.telescopeLocation}</td>
+                                                <td>${plan.status}</td>
+                                            `;
+                                sciencePlansBody2.appendChild(newRow);
+                            })
+                            .catch(error => console.error('Error fetching plan data:', error));
+                    }
+                });
+
+
+                console.log("============================================");
+
+                console.log(planId);
+
+                let allOK = true;
+                let failedKeyValue = null; // เพิ่มตัวแปรเก็บ key และ value ที่ทำให้ผลลัพธ์เป็น false
+
+                for (const [key, value] of Object.entries(testDataDict)) {
+                    if (value !== 'OK' && value !== 'OK.') {
+                        allOK = false;
+                        failedKeyValue = { key, value };
+                        break;
+                    }
+                }
+
+
+                console.log(allOK);
+                console.log("Failed key and value:", failedKeyValue);
+
+
+                if (allOK) {
+                    // Remove
+                    const sciencePlansBody = document.getElementById('sciencePlansBody');
+                    const sciencePlansBody2 = document.getElementById('sciencePlansBody2');
+                    console.log("============================================");
+                    console.log(planId);
+                    // console.log("Type: " +planId.type());
+
+
+                    rows.forEach((row, index) => {
+                        const cells = Array.from(row.querySelectorAll('td'));
+                        const cellValues = cells.map(cell => cell.textContent);
+
+                        const planNo = cellValues[0]; // Assuming planNo is in the first column
+                        console.log("planNo: " + planNo);
+
+                        if (planNo == planId) {
+                            // Remove the row from the first table
+                            row.remove();
+                            console.log(`Row with planId ${planId} match with planNo ${planNo}`);
+
+                            // Fetch the plan data again
+                            fetch(`/sciplans/${planNo}`)
+                                .then(response => response.json())
+                                .then(plan => {
+                                    // Create a new row for the second table
+                                    const newRow = document.createElement('tr');
+                                    newRow.innerHTML = `
+                                        <td>${plan.planNo}</td>
+                                        <td>${plan.creator}</td>
+                                        <td>${plan.submitter}</td>
+                                        <td>${plan.fundingInUSD}</td>
+                                        <td>${plan.objectives}</td>
+                                        <td>${plan.starSystem}</td>
+                                        <td>${plan.startDate}</td>
+                                        <td>${plan.endDate}</td>
+                                        <td>${plan.telescopeLocation}</td>
+                                        <td>${plan.status}</td>
+                                    `;
+                                    sciencePlansBody2.appendChild(newRow);
+                                })
+                                .catch(error => console.error('Error fetching plan data:', error));
+                        }
+                    });
+
+                    // const rowToRemove = rows[planId - 1];
+                    // console.log("rowToRemove"+rowToRemove);
+                    // // if (rowToRemove) {
+                    // //     rowToRemove.remove();
+                    // //     console.log(`Row with planId ${planId} removed from sciencePlansBody`);
+                    // // } else {
+                    // //     console.log(`Row with planId ${planId} not found in sciencePlansBody`);
+                    // // }
+
+
+                    // if (rowToRemove) {
+                    //     rowToRemove.remove();
+                    //     console.log(`Row with planId ${planId} removed from sciencePlansBody`);
+                    //
+                    //     // Fetch the plan data again
+                    //     fetch(`/sciplans/${planId}`)
+                    //         .then(response => response.json())
+                    //         .then(plan => {
+                    //             // Add plan to second table
+                    //             const row = document.createElement('tr');
+                    //             row.innerHTML = `
+                    //             // <td>${plan.planNo}</td>
+                    //             <td>${plan.creator}</td>
+                    //             <td>${plan.submitter}</td>
+                    //             <td>${plan.fundingInUSD}</td>
+                    //             <td>${plan.objectives}</td>
+                    //             <td>${plan.starSystem}</td>
+                    //             <td>${plan.startDate}</td>
+                    //             <td>${plan.endDate}</td>
+                    //             <td>${plan.telescopeLocation}</td>
+                    //             <td>${plan.status}</td>
+                    //         `;
+                    //             sciencePlansBody2.appendChild(row);
+                    //         })
+                    //         .catch(error => console.error('Error fetching plan data:', error));
+                    // }
+
+
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('popup').style.display = 'none';
+                return; // เพิ่ม return เพื่อหยุดการทำงานทันที
+            });
+    }
+
+
     // Call the function to fetch and display science plans data
     // fetchSciencePlans();
 
@@ -940,7 +2245,7 @@
                 console.log('Science Plan created successfully.');
                 // แสดงข้อความแจ้งเตือน
                 alert('Science Plan created successfully.');
-                // window.location.reload();
+                window.location.reload();
                 // ปิด Modal
                 document.getElementById('modalForm').style.display = 'none';
             })
