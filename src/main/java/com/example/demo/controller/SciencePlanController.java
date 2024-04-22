@@ -53,9 +53,9 @@ public class SciencePlanController {
     }
 
     @CrossOrigin
-    @GetMapping("/sciplans/astronomer/{astronomerId}")
-    public ResponseEntity<List<Map<String, Object>>> getSciencePlanByAstronomerById(@PathVariable Long astronomerId) {
-        Optional<List<SciencePlanModel>> sciencePlansOptional = sciencePlanService.getSciencePlanByAstronomerById(astronomerId);
+    @GetMapping("/sciplans/astronomer/{Id}")
+    public ResponseEntity<List<Map<String, Object>>> getSciencePlanByAstronomerById(@PathVariable Long Id) {
+        Optional<List<SciencePlanModel>> sciencePlansOptional = sciencePlanService.getSciencePlanByAstronomerById(Id);
         if (sciencePlansOptional.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
@@ -64,7 +64,14 @@ public class SciencePlanController {
         List<Map<String, Object>> allSciencePlans = sciencePlans.stream().map(sciencePlan -> {
             Map<String, Object> planDetails = new HashMap<>();
             planDetails.put("id", sciencePlan.getPlanNum());
-            planDetails.put("creator", sciencePlan.getCreator());;
+            planDetails.put("creator", sciencePlan.getCreator());
+            // Fetch sciplan from osc based on science plan ID
+            // Assuming osc.getSciencePlanByNo() fetches the sciplan by its ID
+            SciencePlan sciplan = ocs.getSciencePlanByNo(sciencePlan.getPlanNum());
+            // Add sciplan details to the map
+            if (sciplan != null) {
+                planDetails.put("sciplanDetails", sciplan);
+            }
             // Add more fields if needed
             return planDetails;
         }).collect(Collectors.toList());
