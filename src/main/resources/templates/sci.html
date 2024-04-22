@@ -638,8 +638,9 @@
 
                 // Iterate over the science plans and create table rows
                 data.forEach(plan => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
+                    if (plan.status === 'TESTED') {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
                         <td>${plan.planNo}</td>
                         <td>${plan.creator}</td>
                         <td>${plan.submitter}</td>
@@ -652,7 +653,9 @@
                         <td>${plan.status}</td>
                         <td><button class="create-button">Create Observing Program</button></td>
                     `;
-                    sciencePlansBody.appendChild(row);
+                        sciencePlansBody.appendChild(row);
+                    }
+
                 });
             })
             .catch(error => console.error('Error fetching science plans:', error));
