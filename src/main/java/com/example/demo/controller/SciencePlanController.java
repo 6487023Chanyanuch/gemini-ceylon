@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import ch.qos.logback.core.model.Model;
 import com.example.demo.model.Astronomer;
 import com.example.demo.model.ObservingProgramModel;
 import com.example.demo.model.PositionPair;
@@ -52,31 +53,48 @@ public class SciencePlanController {
         return ocs.getSciencePlanByNo(Math.toIntExact(id));
     }
 
-    @CrossOrigin
-    @GetMapping("/sciplans/astronomer/{Id}")
-    public ResponseEntity<List<Map<String, Object>>> getSciencePlanByAstronomerById(@PathVariable Long Id) {
-        Optional<List<SciencePlanModel>> sciencePlansOptional = sciencePlanService.getSciencePlanByAstronomerById(Id);
-        if (sciencePlansOptional.isEmpty()) {
-            return ResponseEntity.notFound().build();
+    @GetMapping("/sciplans/{userRole}/{userId}")
+    public ResponseEntity<List<SciencePlan>> getSciencePlansByUser(@PathVariable String userRole, @PathVariable Long userId) {
+        List<SciencePlan> filteredSciencePlans = new ArrayList<>();
+
+        switch (userRole) {
+            case "astronomer":
+                Optional<List<SciencePlanModel>> astronomerSciencePlansOptional = sciencePlanService.getSciencePlanByAstronomerById(userId);
+                if (astronomerSciencePlansOptional.isPresent()) {
+                    List<SciencePlanModel> astronomerSciencePlans = astronomerSciencePlansOptional.get();
+                    for (SciencePlanModel sciencePlanModel : astronomerSciencePlans) {
+                        SciencePlan sciplan = ocs.getSciencePlanByNo(sciencePlanModel.getPlanNum());
+                        filteredSciencePlans.add(sciplan);
+                    }
+                }
+                break;
+
+            case "ScienceObserver":
+                List<SciencePlan> allSciencePlans = ocs.getAllSciencePlans();
+                for (SciencePlan plan : allSciencePlans) {
+                    if (plan.getStatus().equals("TESTED")) {
+                        filteredSciencePlans.add(plan);
+                    }
+                }
+                break;
+
+            default:
+                return ResponseEntity.badRequest().build();
         }
-        List<SciencePlanModel> sciencePlans = sciencePlansOptional.get();
 
-        List<Map<String, Object>> allSciencePlans = sciencePlans.stream().map(sciencePlan -> {
-            Map<String, Object> planDetails = new HashMap<>();
-            planDetails.put("id", sciencePlan.getPlanNum());
-            planDetails.put("creator", sciencePlan.getCreator());
-            // Fetch sciplan from osc based on science plan ID
-            // Assuming osc.getSciencePlanByNo() fetches the sciplan by its ID
-            SciencePlan sciplan = ocs.getSciencePlanByNo(sciencePlan.getPlanNum());
-            // Add sciplan details to the map
-            if (sciplan != null) {
-                planDetails.put("sciplanDetails", sciplan);
-            }
-            // Add more fields if needed
-            return planDetails;
-        }).collect(Collectors.toList());
+        return ResponseEntity.ok(filteredSciencePlans);
+    }
 
-        return ResponseEntity.ok(allSciencePlans);
+    @GetMapping("/astro/{userId}")
+    public String showAstroPage ( @PathVariable Long userId, Model model ) {
+        // Add logic here to retrieve data for the Astronomer page if needed
+        return "astro";
+    }
+
+    @GetMapping("/sci/{userId}")
+    public String showSciObPage ( @PathVariable Long userId, Model model ) {
+        // Add logic here to retrieve data for the Astronomer page if needed
+        return "sci";
     }
 
     @CrossOrigin
@@ -136,13 +154,25 @@ public class SciencePlanController {
         }
     }
 
-
     @CrossOrigin
-    @PostMapping("/testsciplans")
-    public ResponseEntity<SciencePlanModel> testSciencePlan(@RequestBody SciencePlanModel sciencePlan) {
-        SciencePlanModel savedSciencePlan = sciencePlanRepository.save((SciencePlan) sciencePlan);
-        ocs.testSciencePlan(savedSciencePlan);
-        return ResponseEntity.ok(savedSciencePlan);
+    @GetMapping ("/testsciplans/{id}")
+    public ResponseEntity<String> testSciencePlan(@PathVariable Long id) {
+        if (id != null) {
+            try {
+//                Long planNo = Long.parseLong(planNoStr);
+                SciencePlan sp = ocs.getSciencePlanByNo(Math.toIntExact(id));
+                String testResult = ocs.testSciencePlan(sp);
+//                String status = SciencePlan.STATUS.valueOf(String sp);
+//                System.out.println(testResult);
+                return ResponseEntity.ok(testResult);
+            } catch (NumberFormatException e) {
+                return ResponseEntity.badRequest().body("Invalid plan ID");
+            }
+        } else {
+            return ResponseEntity.badRequest().body("Plan ID is required");
+        }
     }
+
+
 
 }
