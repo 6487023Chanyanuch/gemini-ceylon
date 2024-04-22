@@ -859,7 +859,7 @@
                 console.error('There was a problem with your fetch operation:', error);
                 // แสดงข้อความแจ้งเตือนถ้ามีปัญหา
                 alert('There was a problem creating the Observing Program. Please try again later.');
-            });
+            })
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
