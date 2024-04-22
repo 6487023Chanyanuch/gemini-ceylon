@@ -1830,15 +1830,24 @@
 
 
 <script>
+
+
+    window.onload = fetchSciencePlans;
+
     // Function to fetch science plans data
     function fetchSciencePlans() {
         fetch('/sciplans') // Assuming this endpoint returns the science plans JSON data
             .then(response => response.json())
             .then(data => {
                 const sciencePlansBody = document.getElementById('sciencePlansBody');
+                const sciencePlansBody2 = document.getElementById('sciencePlansBody2');
+
+                console.log('Hi');
 
                 // Clear any existing rows
                 sciencePlansBody.innerHTML = '';
+                sciencePlansBody2.innerHTML = '';
+
 
                 // Iterate over the science plans and create table rows
                 data.forEach(plan => {
@@ -1859,6 +1868,7 @@
                         </td>
 
                     `;
+
                     row.querySelector('button').addEventListener('click', () => {
                         const creatorInfo = document.getElementById('creatorInfo');
                         // const sciplan = data.find(p => p.id === row.dataset.planId);
@@ -1895,16 +1905,38 @@
                                 `).join('')}
                             </ul>
                             <button class="but-test" data-plan-id="${plan.planNo}" onclick="handleTestButtonClick(event)">Test</button>
-
                     `;
                         // Display the pop-up
                         document.getElementById('popup').style.display = 'block';
                     });
-                    sciencePlansBody.appendChild(row);
+                    // sciencePlansBody.appendChild(row);
+                    if (plan.status === "TESTED") {
+                        // console.log('status:', plan.status);
+                        const row2 = document.createElement('tr');
+                        row2.innerHTML = `
+                            <td>${plan.planNo}</td>
+                            <td>${plan.creator}</td>
+                            <td>${plan.submitter}</td>
+                            <td>${plan.fundingInUSD}</td>
+                            <td>${plan.objectives}</td>
+                            <td>${plan.starSystem}</td>
+                            <td>${plan.startDate}</td>
+                            <td>${plan.endDate}</td>
+                            <td>${plan.telescopeLocation}</td>
+                            <td>${plan.status}</td>
+                        `;
+                        // Append the row without button to sciencePlansBody2
+                        sciencePlansBody2.appendChild(row2);
+                        // sciencePlansBody2.appendChild(row);
+                    } else {
+                        sciencePlansBody.appendChild(row);
+                    }
                 });
             })
             .catch(error => console.error('Error fetching science plans:', error));
     }
+
+
 
 
     document.getElementById('close-popup').addEventListener('click', closePopUp);
@@ -1981,46 +2013,46 @@
                 document.getElementById('popup').style.display = 'none';
 
 
-                const rows = Array.prototype.slice.call(sciencePlansBody.querySelectorAll('tr'));
-                console.log("rows: " + rows);
-
-                rows.forEach((row, index) => {
-                    const cells = Array.from(row.querySelectorAll('td'));
-                    const cellValues = cells.map(cell => cell.textContent);
-
-                    // Access the value at index 9 in each row
-                    const savedValue = cellValues[9];
-                    console.log(`Value at index 9 in row ${index}:`, savedValue);
-
-                    if (savedValue === "TESTED") {
-                        // Remove the row from the first table
-                        row.remove();
-                        console.log(`Row with planId ${planId} removed from sciencePlansBody`);
-
-                        // Fetch the plan data again
-                        const planNo = cellValues[0]; // Assuming planNo is in the first column
-                        fetch(`/sciplans/${planNo}`)
-                            .then(response => response.json())
-                            .then(plan => {
-                                // Create a new row for the second table
-                                const newRow = document.createElement('tr');
-                                newRow.innerHTML = `
-                                                <td>${plan.planNo}</td>
-                                                <td>${plan.creator}</td>
-                                                <td>${plan.submitter}</td>
-                                                <td>${plan.fundingInUSD}</td>
-                                                <td>${plan.objectives}</td>
-                                                <td>${plan.starSystem}</td>
-                                                <td>${plan.startDate}</td>
-                                                <td>${plan.endDate}</td>
-                                                <td>${plan.telescopeLocation}</td>
-                                                <td>${plan.status}</td>
-                                            `;
-                                sciencePlansBody2.appendChild(newRow);
-                            })
-                            .catch(error => console.error('Error fetching plan data:', error));
-                    }
-                });
+                // const rows = Array.prototype.slice.call(sciencePlansBody.querySelectorAll('tr'));
+                // console.log("rows: " + rows);
+                //
+                // rows.forEach((row, index) => {
+                //     const cells = Array.from(row.querySelectorAll('td'));
+                //     const cellValues = cells.map(cell => cell.textContent);
+                //
+                //     // Access the value at index 9 in each row
+                //     const savedValue = cellValues[9];
+                //     console.log(`Value at index 9 in row ${index}:`, savedValue);
+                //
+                //     if (savedValue === "TESTED") {
+                //         // Remove the row from the first table
+                //         row.remove();
+                //         console.log(`Row with planId ${planId} removed from sciencePlansBody`);
+                //
+                //         // Fetch the plan data again
+                //         const planNo = cellValues[0]; // Assuming planNo is in the first column
+                //         fetch(`/sciplans/${planNo}`)
+                //             .then(response => response.json())
+                //             .then(plan => {
+                //                 // Create a new row for the second table
+                //                 const newRow = document.createElement('tr');
+                //                 newRow.innerHTML = `
+                //                                 <td>${plan.planNo}</td>
+                //                                 <td>${plan.creator}</td>
+                //                                 <td>${plan.submitter}</td>
+                //                                 <td>${plan.fundingInUSD}</td>
+                //                                 <td>${plan.objectives}</td>
+                //                                 <td>${plan.starSystem}</td>
+                //                                 <td>${plan.startDate}</td>
+                //                                 <td>${plan.endDate}</td>
+                //                                 <td>${plan.telescopeLocation}</td>
+                //                                 <td>${plan.status}</td>
+                //                             `;
+                //                 sciencePlansBody2.appendChild(newRow);
+                //             })
+                //             .catch(error => console.error('Error fetching plan data:', error));
+                //     }
+                // });
 
 
                 console.log("============================================");
@@ -2052,6 +2084,7 @@
                     // console.log("Type: " +planId.type());
 
 
+                    const rows = Array.prototype.slice.call(sciencePlansBody.querySelectorAll('tr'));
                     rows.forEach((row, index) => {
                         const cells = Array.from(row.querySelectorAll('td'));
                         const cellValues = cells.map(cell => cell.textContent);
