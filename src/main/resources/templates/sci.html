@@ -190,6 +190,43 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+        //card
+        .card-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px; /* Adjust as needed */
+}
+
+.card {
+    flex: 0 0 calc(33.33% - 20px); /* 3 cards per row with 20px margin between */
+    margin-right: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.card:last-child {
+    margin-right: 0;
+}
+
+.card-header {
+    background-color: #f2f2f2;
+    padding: 10px;
+    text-align: center;
+}
+
+.card-body {
+    padding: 10px;
+}
+
+.card-footer {
+    background-color: #f2f2f2;
+    padding: 10px;
+    text-align: center;
+}
+
     </style>
 </head>
 <body>
@@ -221,6 +258,11 @@
             </tbody>
         </table>
     </div>
+</div>
+
+<h2>Observing Programs</h2>
+<div id="observingProgramsBody" class="card-container">
+    <!-- Data will be dynamically added here as cards -->
 </div>
 
 <!-- Modal form -->
@@ -272,7 +314,7 @@
             <label for="observerAffiliation">Observer Affiliation:</label>
             <input type="text" id="observerAffiliation" name="observerAffiliation"><br>
 
-            <input type="submit" value="Submit">
+            <input type="submit" value="Submit" onclick="submitForm(event)">
         </form>
     </div>
 </div>
@@ -303,8 +345,7 @@
                         <td>${plan.endDate}</td>
                         <td>${plan.telescopeLocation}</td>
                         <td>${plan.status}</td>
-                        <td><button class="create-button">Create Science Plan</button></td>
-
+                        <td><button class="create-button">Create Observing Program</button></td>
                     `;
                     sciencePlansBody.appendChild(row);
                 });
@@ -385,6 +426,136 @@
 
     // Call the function to fetch and display the user ID
     fetchUserId();
+
+    // Function to handle form submission
+    function submitForm(event) {
+        event.preventDefault(); // Prevent default form submission behavior
+
+        // Get form input values
+        const planNo = document.getElementById('planNo').value;
+        const opticsPrimary = document.getElementById('opticsPrimary').value;
+        const fStop = parseFloat(document.getElementById('fStop').value);
+        const opticsSecondaryRMS = parseFloat(document.getElementById('opticsSecondaryRMS').value);
+        const scienceFoldMirrorDegree = parseFloat(document.getElementById('scienceFoldMirrorDegree').value);
+        const scienceFoldMirrorType = document.getElementById('scienceFoldMirrorType').value;
+        const moduleContent = parseInt(document.getElementById('moduleContent').value);
+        const calibrationUnit = document.getElementById('calibrationUnit').value;
+        const lightType = document.getElementById('lightType').value;
+
+        // Get telePositionCount
+        const telePositionCount = parseInt(document.getElementById('telePositionCount').value);
+
+        // Create an array to store telePositionPairs
+        const telePositionPairs = [];
+
+        // Loop through each telePositionPair input fields and construct objects
+        for (let i = 0; i < telePositionCount; i++) {
+            const direction = parseFloat(document.getElementById(`telePosition_${i}_direction`).value);
+            const degree = parseFloat(document.getElementById(`telePosition_${i}_degree`).value);
+            telePositionPairs.push({ direction, degree });
+        }
+
+        // Create JSON object
+        const observingProgramData = {
+            planNo,
+            opticsPrimary,
+            fStop,
+            opticsSecondaryRMS,
+            scienceFoldMirrorDegree,
+            scienceFoldMirrorType,
+            moduleContent,
+            calibrationUnit,
+            lightType,
+            telePositionPairs
+        };
+
+        console.log(JSON.stringify(observingProgramData));
+
+        // Send POST request to /addobserving endpoint
+        fetch('/addobserving', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(observingProgramData),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            // ส่วนนี้สามารถเพิ่มการประมวลผลเพิ่มเติมหรือแสดงข้อความแจ้งเตือนได้ตามต้องการ
+            console.log('Observing Program created successfully.');
+            // แสดงข้อความแจ้งเตือน
+            alert('Observing Program created successfully.');
+            // ปิด Modal
+            document.getElementById('modalForm').style.display = 'none';
+        })
+        .catch(error => {
+            console.error('There was a problem with your fetch operation:', error);
+            // แสดงข้อความแจ้งเตือนถ้ามีปัญหา
+            alert('There was a problem creating the Observing Program. Please try again later.');
+        });
+    }
+
+
+    // Function to fetch observing programs data
+    function fetchObservingPrograms() {
+        fetch(`/allObserving`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch observing programs');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const observingProgramsContainer = document.getElementById('observingProgramsBody');
+
+                // Clear any existing content
+                observingProgramsContainer.innerHTML = '';
+
+                // Create card containers for each observing program
+                for (let i = 0; i < data.length; i += 3) {
+                    const cardRow = document.createElement('div');
+                    cardRow.classList.add('card-row');
+
+                    // Add up to 3 observing programs in each row
+                    for (let j = i; j < Math.min(i + 3, data.length); j++) {
+                        const program = data[j];
+                        const card = document.createElement('div');
+                        card.classList.add('card');
+                        card.innerHTML = `
+                            <div class="card-header">
+                                <h3>Plan No: ${program.planNo}</h3>
+                            </div>
+                            <div class="card-body">
+                                <p>Optics Primary: ${program.opticsPrimary}</p>
+                                <p>F Stop: ${program.fStop}</p>
+                                <p>Optics Secondary RMS: ${program.opticsSecondaryRMS}</p>
+                                <p>Science Fold Mirror Degree: ${program.scienceFoldMirrorDegree}</p>
+                                <p>Science Fold Mirror Type: ${program.scienceFoldMirrorType}</p>
+                                <p>Module Content: ${program.moduleContent}</p>
+                                <p>Calibration Unit: ${program.calibrationUnit}</p>
+                                <p>Light Type: ${program.lightType}</p>
+                                <p>Tele Position Pairs: ${JSON.stringify(program.telePositionPairs)}</p>
+                            </div>
+                            <div class="card-footer">
+                                <button class="edit-button">Edit</button>
+                                <button class="delete-button">Delete</button>
+                            </div>
+                        `;
+                        cardRow.appendChild(card);
+                    }
+
+                    observingProgramsContainer.appendChild(cardRow);
+                }
+            })
+            .catch(error => console.error('Error fetching observing programs:', error));
+    }
+
+    // Call the function to fetch and display observing programs data-->
+    fetchObservingPrograms();
+
+
 </script>
 
 </body>
