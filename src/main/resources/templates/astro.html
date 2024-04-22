@@ -732,6 +732,26 @@
                     </li>
                     <!---------Number Ends Here---------->
 
+                    <li class="zf-tempFrmWrapper zf-small"><label class="zf-labelName">
+                        Id
+                    </label>
+                        <div class="zf-tempContDiv">
+                            <span> <input id="Id" type="number" name="Id" /></span>
+                            <p id="Id_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                        </div>
+                        <div class="zf-clearBoth"></div>
+                    </li>
+
+                    <li class="zf-tempFrmWrapper zf-small"><label class="zf-labelName">
+                        AstronomerID
+                    </label>
+                        <div class="zf-tempContDiv">
+                            <span> <input id="astronomerID" type="number" name="astronomerID" /></span>
+                            <p id="astronomerID_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
+                        </div>
+                        <div class="zf-clearBoth"></div>
+                    </li>
+
                 </ul>
             </div>
             <!---------template Container Starts Here---------->
@@ -751,41 +771,67 @@
 
 
 <script>
-    // Function to fetch science plans data
-    function fetchSciencePlans() {
-        fetch('/sciplans') // Assuming this endpoint returns the science plans JSON data
-            .then(response => response.json())
-            .then(data => {
-                const sciencePlansBody = document.getElementById('sciencePlansBody');
-
-                // Clear any existing rows
-                sciencePlansBody.innerHTML = '';
-
-                // Iterate over the science plans and create table rows
-                data.forEach(plan => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${plan.planNo}</td>
-                        <td>${plan.creator}</td>
-                        <td>${plan.submitter}</td>
-                        <td>${plan.fundingInUSD}</td>
-                        <td>${plan.objectives}</td>
-                        <td>${plan.starSystem}</td>
-                        <td>${plan.startDate}</td>
-                        <td>${plan.endDate}</td>
-                        <td>${plan.telescopeLocation}</td>
-                        <td>${plan.status}</td>
-                        <td><button class="create-button">Test</button></td>
-
-                    `;
-                    sciencePlansBody.appendChild(row);
-                });
-            })
-            .catch(error => console.error('Error fetching science plans:', error));
+    // Function to fetch the User ID with proper return
+    async function fetchUserId() {
+        try {
+            const response = await fetch('/userId'); // Fetching User ID from endpoint
+            if (!response.ok) {
+                throw new Error('Failed to fetch User ID'); // Check if response is okay
+            }
+            const data = await response.json(); // Parse JSON response
+            return data.userId; // Return the User ID
+        } catch (error) {
+            console.error('Error fetching User ID:', error); // Handle error
+            throw error; // Re-throw error to be handled further
+        }
     }
+    // Call the function to fetch and display the user ID
+    // Function to fetch science plans data
+    async function fetchSciencePlans(userId) {
+        try {
+            const response = await fetch(`/sciplans/astronomer/${userId}`); // Use User ID to fetch science plans
+            if (!response.ok) {
+                throw new Error('Failed to fetch Science Plans'); // Check if response is okay
+            }
+            const data = await response.json(); // Parse JSON response
+            const sciencePlansBody = document.getElementById('sciencePlansBody');
 
+            // Clear any existing rows
+            sciencePlansBody.innerHTML = '';
+
+            // Populate the table with new data
+            data.forEach(plan => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                <td>${plan.planNo}</td>
+                <td>${plan.creator}</td>
+                <td>${plan.submitter}</td>
+                <td>${plan.fundingInUSD}</td>
+                <td>${plan.objectives}</td>
+                <td>${plan.starSystem}</td>
+                <td>${plan.startDate}</td>
+                <td>${plan.endDate}</td>
+                <td>${plan.telescopeLocation}</td>
+                <td>${plan.status}</td>
+                <td><button class="create-button">Test</button></td>
+            `;
+                sciencePlansBody.appendChild(row); // Add new row to the table
+            });
+        } catch (error) {
+            console.error('Error fetching Science Plans:', error); // Handle errors
+        }
+    }
+    // Get User ID and then fetch Science Plans
+    (async function initialize() {
+        try {
+            const userId = await fetchUserId(); // Fetch User ID asynchronously
+            fetchSciencePlans(userId); // Fetch Science Plans using the obtained User ID
+        } catch (error) {
+            console.error('Error initializing:', error); // Handle any initialization error
+        }
+    })();
     // Call the function to fetch and display science plans data
-    fetchSciencePlans();
+    // fetchSciencePlans();
 
 
     // ----- Action Form -----
@@ -811,21 +857,6 @@
             modal.style.display = "none";
         }
     }
-
-    // document.getElementById("myButton").addEventListener("click", function () {
-    //     alert("กำลังเปลี่ยนหน้า...");
-    // });
-
-    // Event listener to display form when button is clicked
-    // document.addEventListener('click', function (event) {
-    //     if (event.target.classList.contains('create-button')) {
-    //         // เมื่อคลิกที่ปุ่ม "Create Science Plan" ให้ดึงค่า Plan No จากตารางและกำหนดให้กับฟอร์ม
-    //         let planNo = event.target.parentNode.parentNode.querySelector('td:first-child').innerText;
-    //         document.getElementById('planNo').value = planNo;
-    //         // แสดง Modal
-    //         document.getElementById('modalForm').style.display = 'block';
-    //     }
-    // });
 
     document.getElementById('sciencePlanForm').addEventListener('submit', function (event) {
         event.preventDefault(); // หยุดการ submit ฟอร์มเพื่อป้องกันหน้าเว็บโหลดใหม่
@@ -877,9 +908,16 @@
             "whites": SciWhites,
             "blacks": SciBlacks,
             "luminance": SciLuminance,
-            "hue": SciHue
+            "hue": SciHue,
+            "astronomers": [
+                {
+                    id: document.getElementById('Id').value,
+                    astronomerID: document.getElementById('astronomerID').value
+                }
+            ]
 
         };
+
 
         // แปลง JSON object เป็น string
         let jsonData = JSON.stringify(data);
@@ -887,8 +925,26 @@
         // ปริ้น JSON ออกมาใน console
         console.log(jsonData);
 
-        // ส่ง JSON ไปยังเซิร์ฟเวอร์หรือทำอย่างอื่นต่อไปได้ตามต้องการ
-        // เช่น ส่งข้อมูล JSON ไปยัง API หรือฐานข้อมูล เพื่อบันทึกข้อมูล
+        fetch('/addsciplans', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                // ส่วนนี้สามารถเพิ่มการประมวลผลเพิ่มเติมหรือแสดงข้อความแจ้งเตือนได้ตามต้องการ
+                console.log('Science Plan created successfully.');
+                // แสดงข้อความแจ้งเตือน
+                alert('Science Plan created successfully.');
+                // window.location.reload();
+                // ปิด Modal
+                document.getElementById('modalForm').style.display = 'none';
+            })
+
     });
 
 </script>

@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import ch.qos.logback.core.model.Model;
 import com.example.demo.model.Astronomer;
 import com.example.demo.model.ObservingProgramModel;
 import com.example.demo.model.PositionPair;
@@ -52,24 +53,33 @@ public class SciencePlanController {
         return ocs.getSciencePlanByNo(Math.toIntExact(id));
     }
 
-    @CrossOrigin
-    @GetMapping("/sciplans/astronomer/{astronomerId}")
-    public ResponseEntity<List<Map<String, Object>>> getSciencePlanByAstronomerById(@PathVariable Long astronomerId) {
-        Optional<List<SciencePlanModel>> sciencePlansOptional = sciencePlanService.getSciencePlanByAstronomerById(astronomerId);
+    @GetMapping("/sciplans/astronomer/{userId}")
+    public ResponseEntity<List<SciencePlan>> getSciencePlanByAstronomerById(@PathVariable Long userId) {
+        // Rest of your method implementation
+        Optional<List<SciencePlanModel>> sciencePlansOptional = sciencePlanService.getSciencePlanByAstronomerById(userId);
         if (sciencePlansOptional.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         List<SciencePlanModel> sciencePlans = sciencePlansOptional.get();
-
-        List<Map<String, Object>> allSciencePlans = sciencePlans.stream().map(sciencePlan -> {
-            Map<String, Object> planDetails = new HashMap<>();
-            planDetails.put("id", sciencePlan.getPlanNum());
-            planDetails.put("creator", sciencePlan.getCreator());;
-            // Add more fields if needed
-            return planDetails;
+        List<SciencePlan> allSciencePlans = sciencePlans.stream().map(sciencePlanModel -> {
+            // Fetch sciplan from osc based on science plan ID
+            // Assuming ocs.getSciencePlanByNo() fetches the sciplan by its ID
+            SciencePlan sciplan = ocs.getSciencePlanByNo(sciencePlanModel.getPlanNum());
+            return sciplan;
         }).collect(Collectors.toList());
-
         return ResponseEntity.ok(allSciencePlans);
+    }
+
+    @GetMapping("/astro/{userId}")
+    public String showAstroPage ( @PathVariable Long userId, Model model ) {
+        // Add logic here to retrieve data for the Astronomer page if needed
+        return "astro";
+    }
+
+    @GetMapping("/sci/{userId}")
+    public String showSciObPage ( @PathVariable Long userId, Model model ) {
+        // Add logic here to retrieve data for the Astronomer page if needed
+        return "sci";
     }
 
     @CrossOrigin
@@ -128,7 +138,6 @@ public class SciencePlanController {
             return false;
         }
     }
-
 
     @CrossOrigin
     @PostMapping("/testsciplans")

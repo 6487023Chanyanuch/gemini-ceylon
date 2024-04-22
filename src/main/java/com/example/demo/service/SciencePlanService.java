@@ -3,7 +3,9 @@ package com.example.demo.service;
 import com.example.demo.model.Astronomer;
 import com.example.demo.model.SciencePlanModel;
 import com.example.demo.repository.AstronomerRepository;
+import com.example.demo.repository.ScienceObserverRepository;
 import com.example.demo.repository.SciencePlanRepository;
+import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +23,16 @@ public class SciencePlanService {
     @Autowired
     private AstronomerRepository astronomerRepository;
 
-    public Optional<List<SciencePlanModel>> getSciencePlanByAstronomerById(Long astronomerId) {
-        Astronomer astronomer = astronomerRepository.findById(astronomerId)
-                .orElseThrow(() -> new RuntimeException("Astronomer not found with id " + astronomerId));
+    @Autowired
+    private ScienceObserverRepository scienceObserverRepository;
+    @Autowired
+    private UserRepository   userRepository;
+
+
+
+    public Optional<List<SciencePlanModel>> getSciencePlanByAstronomerById(Long Id) {
+        Astronomer astronomer = astronomerRepository.findById(Id)
+                .orElseThrow(() -> new RuntimeException("Astronomer not found with id " + Id));
 
         List<SciencePlanModel> sciencePlans = astronomer.getSciencePlans().stream()
                 .map(sciencePlan -> (SciencePlanModel) sciencePlan)
@@ -31,4 +40,21 @@ public class SciencePlanService {
 
         return Optional.of(Optional.ofNullable(sciencePlans).orElse(Collections.emptyList()));
     }
+
+
+
+
+
+//    public Optional<List<SciencePlanModel>> getSciencePlanByById(Long id) {
+//        Astronomer astronomer = UserRepository.findByID(id)
+//                .orElseThrow(() -> new RuntimeException("Astronomer not found with id " + id));
+//
+//        List<SciencePlanModel> sciencePlans = astronomer.getSciencePlans().stream()
+//                .map(sciencePlan -> (SciencePlanModel) sciencePlan)
+//                .collect(Collectors.toList());
+//
+//        return Optional.of(Optional.ofNullable(sciencePlans).orElse(Collections.emptyList()));
+//    }
+
+
 }
