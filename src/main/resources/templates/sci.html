@@ -603,15 +603,6 @@
                             <span> <input type="text" id="observerName" name="observerName" readonly></span>
                         </div>
                     </li>
-
-                    <li class="zf-tempFrmWrapper zf-small">
-                        <label for="observerAffiliation" class="zf-labelName">Observer Affiliation:</label>
-                        <div class="zf-tempContDiv">
-                                <span>
-                                    <input type="text" id="observerAffiliation" name="observerAffiliation">
-                                </span>
-                        </div>
-                    </li>
                     <ul>
                         <li class="zf-fmFooter">
                             <input type="submit" value="Submit" onclick="submitForm(event)" class="zf-submitColor">
@@ -859,7 +850,7 @@
                 console.error('There was a problem with your fetch operation:', error);
                 // แสดงข้อความแจ้งเตือนถ้ามีปัญหา
                 alert('There was a problem creating the Observing Program. Please try again later.');
-            });
+            })
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
