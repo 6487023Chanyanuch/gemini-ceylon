@@ -24,38 +24,6 @@ public class LoginController {
         return "login";
     }
 
-    @GetMapping("/astro")
-    public String showAstronomerPage(Model model) {
-        return "astro";
-    }
-
-    @GetMapping("/sci")
-    public String showScienceObserverPage(Model model) {
-        return "sci";
-    }
-
-//    @PostMapping("/login")
-//    public ModelAndView login(@RequestParam("email") String email,
-//                              @RequestParam("password") String password,
-//                              HttpSession session) {
-//
-//        User user = userRepository.findByEmailAndPassword(email, password);
-//        if (user != null) {
-//            session.setAttribute("userId", user.getID());
-//            session.setAttribute("userName", user.getFirstname());
-//            System.out.println(user.getID());
-//            System.out.println(user.getFirstname());
-//
-//            if (user instanceof Astronomer) {
-//                return new ModelAndView("redirect:/astro");
-//            } else if (user instanceof ScienceObserver) {
-//                return new ModelAndView("redirect:/sci");
-//            }
-//        }
-//        // Redirect back to login page in case of failure
-//        return new ModelAndView("redirect:/login");
-//    }
-
     @PostMapping("/login")
     public String login(@RequestParam("email") String email,
                         @RequestParam("password") String password,
@@ -64,11 +32,15 @@ public class LoginController {
         User user = userRepository.findByEmailAndPassword(email, password);
         if (user != null) {
             session.setAttribute("userId", user.getID());
+            session.setAttribute("userName", user.getFirstname());
+            System.out.println(user.getID());
+            System.out.println(user.getFirstname());
+
             Long userId = user.getID();
             if (user instanceof Astronomer) {
-                return "redirect:/astro/" + userId; // Redirect to the Astronomer page with the user ID
+                return "redirect:/astro/" + userId;
             } else if (user instanceof ScienceObserver) {
-                return "redirect:/sci/" + userId; // Redirect to the ScienceObserver page with the user ID
+                return "redirect:/sci/" + userId;
             }
         }
         return "login";

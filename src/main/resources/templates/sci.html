@@ -603,15 +603,6 @@
                             <span> <input type="text" id="observerName" name="observerName" readonly></span>
                         </div>
                     </li>
-
-                    <li class="zf-tempFrmWrapper zf-small">
-                        <label for="observerAffiliation" class="zf-labelName">Observer Affiliation:</label>
-                        <div class="zf-tempContDiv">
-                                <span>
-                                    <input type="text" id="observerAffiliation" name="observerAffiliation">
-                                </span>
-                        </div>
-                    </li>
                     <ul>
                         <li class="zf-fmFooter">
                             <input type="submit" value="Submit" onclick="submitForm(event)" class="zf-submitColor">
@@ -638,9 +629,8 @@
 
                 // Iterate over the science plans and create table rows
                 data.forEach(plan => {
-                    if (plan.status === 'TESTED') {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
                         <td>${plan.planNo}</td>
                         <td>${plan.creator}</td>
                         <td>${plan.submitter}</td>
@@ -653,9 +643,7 @@
                         <td>${plan.status}</td>
                         <td><button class="create-button">Create Observing Program</button></td>
                     `;
-                        sciencePlansBody.appendChild(row);
-                    }
-
+                    sciencePlansBody.appendChild(row);
                 });
             })
             .catch(error => console.error('Error fetching science plans:', error));
@@ -863,23 +851,23 @@
                 // แสดงข้อความแจ้งเตือนถ้ามีปัญหา
                 alert('There was a problem creating the Observing Program. Please try again later.');
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                // ส่วนนี้สามารถเพิ่มการประมวลผลเพิ่มเติมหรือแสดงข้อความแจ้งเตือนได้ตามต้องการ
-                console.log('Observing Program created successfully.');
-                // แสดงข้อความแจ้งเตือน
-                alert('Observing Program created successfully.');
-                // ปิด Modal
-                document.getElementById('modalForm').style.display = 'none';
-                fetchObservingPrograms();
-            })
-            .catch(error => {
-                console.error('There was a problem with your fetch operation:', error);
-                // แสดงข้อความแจ้งเตือนถ้ามีปัญหา
-                alert('There was a problem creating the Observing Program. Please try again later.');
-            });
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            // ส่วนนี้สามารถเพิ่มการประมวลผลเพิ่มเติมหรือแสดงข้อความแจ้งเตือนได้ตามต้องการ
+            console.log('Observing Program created successfully.');
+            // แสดงข้อความแจ้งเตือน
+            alert('Observing Program created successfully.');
+            // ปิด Modal
+            document.getElementById('modalForm').style.display = 'none';
+            fetchObservingPrograms();
+        })
+        .catch(error => {
+            console.error('There was a problem with your fetch operation:', error);
+            // แสดงข้อความแจ้งเตือนถ้ามีปัญหา
+            alert('There was a problem creating the Observing Program. Please try again later.');
+        });
     }
 
     fetchObservingPrograms();
