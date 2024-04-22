@@ -32,9 +32,6 @@ public class SciencePlanController {
     @Autowired
     private SciencePlanService sciencePlanService;
 
-//    @Autowired
-//    private OCSRepository ocsRepository;
-
     @Autowired
     private ScienceObserverRepository scienceObserverRepository;
 
@@ -56,9 +53,9 @@ public class SciencePlanController {
     }
 
     @CrossOrigin
-    @GetMapping("/sciplans/astronomer/{astronomerId}")
-    public ResponseEntity<List<Map<String, Object>>> getSciencePlanByAstronomerById(@PathVariable Long astronomerId) {
-        Optional<List<SciencePlanModel>> sciencePlansOptional = sciencePlanService.getSciencePlanByAstronomerById(astronomerId);
+    @GetMapping("/sciplans/astronomer/{Id}")
+    public ResponseEntity<List<Map<String, Object>>> getSciencePlanByAstronomerById(@PathVariable Long Id) {
+        Optional<List<SciencePlanModel>> sciencePlansOptional = sciencePlanService.getSciencePlanByAstronomerById(Id);
         if (sciencePlansOptional.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
@@ -67,7 +64,14 @@ public class SciencePlanController {
         List<Map<String, Object>> allSciencePlans = sciencePlans.stream().map(sciencePlan -> {
             Map<String, Object> planDetails = new HashMap<>();
             planDetails.put("id", sciencePlan.getPlanNum());
-            planDetails.put("creator", sciencePlan.getCreator());;
+            planDetails.put("creator", sciencePlan.getCreator());
+            // Fetch sciplan from osc based on science plan ID
+            // Assuming osc.getSciencePlanByNo() fetches the sciplan by its ID
+            SciencePlan sciplan = ocs.getSciencePlanByNo(sciencePlan.getPlanNum());
+            // Add sciplan details to the map
+            if (sciplan != null) {
+                planDetails.put("sciplanDetails", sciplan);
+            }
             // Add more fields if needed
             return planDetails;
         }).collect(Collectors.toList());
@@ -108,7 +112,6 @@ public class SciencePlanController {
         System.out.println(planId);
         System.out.println("55555555555555555555555555555555555555555555555555555");
         sciencePlann.setPlanNum(planId);
-//        System.out.println(sciencePlann.getPlanNum());
         SciencePlanModel savedSciencePlan = sciencePlanRepository.save((SciencePlan) sciencePlann);
 
         return ResponseEntity.ok(savedSciencePlan);
@@ -140,72 +143,6 @@ public class SciencePlanController {
         SciencePlanModel savedSciencePlan = sciencePlanRepository.save((SciencePlan) sciencePlan);
         ocs.testSciencePlan(savedSciencePlan);
         return ResponseEntity.ok(savedSciencePlan);
-    }
-
-
-    @CrossOrigin
-    @GetMapping("/observing")
-    @ResponseBody
-    public List<ObservingProgram> getAllObservingPrograms() {
-        ObservingProgram[] observingPrograms = ocs.getObservingPrograms();
-        List<ObservingProgram> observingProgramList = new ArrayList<>(observingPrograms.length);
-        observingProgramList.addAll(Arrays.asList(observingPrograms));
-        return observingProgramList;
-    }
-
-    @CrossOrigin
-    @GetMapping("/observing/{id}")
-    @ResponseBody
-    public ObservingProgram getObservingProgramById(@PathVariable Long id) {
-        int planNo = id.intValue();
-        SciencePlan sp = ocs.getSciencePlanByNo(planNo);
-        return ocs.getObservingProgramBySciencePlan(sp);
-    }
-
-    @CrossOrigin
-    @PostMapping("/addobserving")
-    public ResponseEntity<ObservingProgramModel> createObservingProgram(@RequestBody ObservingProgramModel observingProgramModel) {
-
-        List<PositionPair> positionPairs = List.of(observingProgramModel.getTelePositionPairs());
-        for (PositionPair positionPair : positionPairs) {
-            positionPair.setObservingProgramModel(observingProgramModel);
-        }
-
-        ObservingProgramModel savedObservingProgram = observingProgramRepository.saveAndFlush(observingProgramModel);
-        int a = savedObservingProgram.getTelePositionPairs().length;
-        System.out.println("---------------------------------------------------------------");
-        System.out.println(a);
-        System.out.println("---------------------------------------------------------------");
-
-        System.out.println("---------------------------------------------------------------");
-        System.out.println(savedObservingProgram.getTelePositionPairs());
-        System.out.println("---------------------------------------------------------------");
-
-        // Convert PositionPair list to an array of TelePositionPair
-        TelePositionPair[] telePositionPairs = new TelePositionPair[positionPairs.size()];
-        for (int i = 0; i < positionPairs.size(); i++) {
-            PositionPair pp = positionPairs.get(i);
-            telePositionPairs[i] = new TelePositionPair(pp.getDirection(), pp.getDegree());
-        }
-        // Debugging to verify telePositionPairs
-        System.out.println("---------------------------------------------------------------");
-        System.out.println("Number of Position Pairs: " + positionPairs.size());
-        for (TelePositionPair tpp : telePositionPairs) {
-            System.out.println("TelePositionPair - Direction: " + tpp.getDirection() + ", Degree: " + tpp.getDegree());
-        }
-        System.out.println("---------------------------------------------------------------");
-
-
-        ObservingProgram op = ocs.createObservingProgram(ocs.getSciencePlanByNo(savedObservingProgram.getPlanNo()), savedObservingProgram.getOpticsPrimary()
-                ,savedObservingProgram.getfStop(),savedObservingProgram.getOpticsSecondaryRMS(),savedObservingProgram.getScienceFoldMirrorDegree(),
-                savedObservingProgram.getScienceFoldMirrorType(),savedObservingProgram.getModuleContent(),savedObservingProgram.getCalibrationUnit(),savedObservingProgram.getLightType(), telePositionPairs);
-        System.out.println(op);
-        op.validateObservingCondition(op);
-        System.out.println(op);
-        ocs.saveObservingProgram(op);
-
-
-        return ResponseEntity.ok(savedObservingProgram);
     }
 
 }

@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import edu.gemini.app.ocs.model.ObservingProgramConfigs;
 import jakarta.persistence.*;
 
@@ -68,13 +69,13 @@ public class ObservingProgramModel  {
         return scienceFoldMirrorDegree;
     }
 
-    public void setScienceFoldMirrorType(String scienceFoldMirrorType) {
-        this.scienceFoldMirrorType = scienceFoldMirrorType;
-    }
-
-    public ObservingProgramConfigs.FoldMirrorType getScienceFoldMirrorType() {
-        return ObservingProgramConfigs.FoldMirrorType.valueOf(scienceFoldMirrorType);
-    }
+//    public void setScienceFoldMirrorType(String scienceFoldMirrorType) {
+//        this.scienceFoldMirrorType = scienceFoldMirrorType;
+//    }
+//
+//    public ObservingProgramConfigs.FoldMirrorType getScienceFoldMirrorType() {
+//        return ObservingProgramConfigs.FoldMirrorType.valueOf(scienceFoldMirrorType);
+//    }
 
     public void setModuleContent(int moduleContent) {
         this.moduleContent = moduleContent;
@@ -84,13 +85,30 @@ public class ObservingProgramModel  {
         return moduleContent;
     }
 
-    public void setCalibrationUnit(String calibrationUnit) {
-        this.calibrationUnit = calibrationUnit;
+//    public void setCalibrationUnit(String calibrationUnit) {
+//        this.calibrationUnit = calibrationUnit;
+//    }
+//
+//    public ObservingProgramConfigs.CalibrationUnit getCalibrationUnit() {
+//        return ObservingProgramConfigs.CalibrationUnit.valueOf(calibrationUnit);
+//    }
+
+    public void setScienceFoldMirrorType(ObservingProgramConfigs.FoldMirrorType scienceFoldMirrorType) {
+        this.scienceFoldMirrorType = scienceFoldMirrorType.name();
+    }
+
+    public ObservingProgramConfigs.FoldMirrorType getScienceFoldMirrorType() {
+        return ObservingProgramConfigs.FoldMirrorType.valueOf(scienceFoldMirrorType);
+    }
+
+    public void setCalibrationUnit(ObservingProgramConfigs.CalibrationUnit calibrationUnit) {
+        this.calibrationUnit = calibrationUnit.name();
     }
 
     public ObservingProgramConfigs.CalibrationUnit getCalibrationUnit() {
         return ObservingProgramConfigs.CalibrationUnit.valueOf(calibrationUnit);
     }
+
 
     public void setLightType(String lightType) {
         this.lightType = lightType;

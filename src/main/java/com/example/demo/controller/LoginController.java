@@ -24,20 +24,10 @@ public class LoginController {
         return "login";
     }
 
-    @GetMapping("/astro")
-    public String showAstronomerPage(Model model) {
-        return "astro";
-    }
-
-    @GetMapping("/sci")
-    public String showScienceObserverPage(Model model) {
-        return "sci";
-    }
-
     @PostMapping("/login")
-    public ModelAndView login(@RequestParam("email") String email,
-                              @RequestParam("password") String password,
-                              HttpSession session) {
+    public String login(@RequestParam("email") String email,
+                        @RequestParam("password") String password,
+                        HttpSession session) {
 
         User user = userRepository.findByEmailAndPassword(email, password);
         if (user != null) {
@@ -46,13 +36,13 @@ public class LoginController {
             System.out.println(user.getID());
             System.out.println(user.getFirstname());
 
+            Long userId = user.getID();
             if (user instanceof Astronomer) {
-                return new ModelAndView("redirect:/astro");
+                return "redirect:/astro/" + userId;
             } else if (user instanceof ScienceObserver) {
-                return new ModelAndView("redirect:/sci");
+                return "redirect:/sci/" + userId;
             }
         }
-        // Redirect back to login page in case of failure
-        return new ModelAndView("redirect:/login");
+        return "login";
     }
 }
