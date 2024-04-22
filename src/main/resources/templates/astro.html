@@ -1980,6 +1980,49 @@
 
                 document.getElementById('popup').style.display = 'none';
 
+
+                const rows = Array.prototype.slice.call(sciencePlansBody.querySelectorAll('tr'));
+                console.log("rows: " + rows);
+
+                rows.forEach((row, index) => {
+                    const cells = Array.from(row.querySelectorAll('td'));
+                    const cellValues = cells.map(cell => cell.textContent);
+
+                    // Access the value at index 9 in each row
+                    const savedValue = cellValues[9];
+                    console.log(`Value at index 9 in row ${index}:`, savedValue);
+
+                    if (savedValue === "TESTED") {
+                        // Remove the row from the first table
+                        row.remove();
+                        console.log(`Row with planId ${planId} removed from sciencePlansBody`);
+
+                        // Fetch the plan data again
+                        const planNo = cellValues[0]; // Assuming planNo is in the first column
+                        fetch(`/sciplans/${planNo}`)
+                            .then(response => response.json())
+                            .then(plan => {
+                                // Create a new row for the second table
+                                const newRow = document.createElement('tr');
+                                newRow.innerHTML = `
+                                                <td>${plan.planNo}</td>
+                                                <td>${plan.creator}</td>
+                                                <td>${plan.submitter}</td>
+                                                <td>${plan.fundingInUSD}</td>
+                                                <td>${plan.objectives}</td>
+                                                <td>${plan.starSystem}</td>
+                                                <td>${plan.startDate}</td>
+                                                <td>${plan.endDate}</td>
+                                                <td>${plan.telescopeLocation}</td>
+                                                <td>${plan.status}</td>
+                                            `;
+                                sciencePlansBody2.appendChild(newRow);
+                            })
+                            .catch(error => console.error('Error fetching plan data:', error));
+                    }
+                });
+
+
                 console.log("============================================");
 
                 console.log(planId);
@@ -1995,6 +2038,7 @@
                     }
                 }
 
+
                 console.log(allOK);
                 console.log("Failed key and value:", failedKeyValue);
 
@@ -2005,47 +2049,83 @@
                     const sciencePlansBody2 = document.getElementById('sciencePlansBody2');
                     console.log("============================================");
                     console.log(planId);
+                    // console.log("Type: " +planId.type());
 
-                    // // Remove plan from first table
-                    const rows = sciencePlansBody.querySelectorAll('tr');
-                    console.log(rows);
 
-                    const rowToRemove = rows[planId - 1];
-                    console.log("rowToRemove"+rowToRemove);
+                    rows.forEach((row, index) => {
+                        const cells = Array.from(row.querySelectorAll('td'));
+                        const cellValues = cells.map(cell => cell.textContent);
+
+                        const planNo = cellValues[0]; // Assuming planNo is in the first column
+                        console.log("planNo: " + planNo);
+
+                        if (planNo == planId) {
+                            // Remove the row from the first table
+                            row.remove();
+                            console.log(`Row with planId ${planId} match with planNo ${planNo}`);
+
+                            // Fetch the plan data again
+                            fetch(`/sciplans/${planNo}`)
+                                .then(response => response.json())
+                                .then(plan => {
+                                    // Create a new row for the second table
+                                    const newRow = document.createElement('tr');
+                                    newRow.innerHTML = `
+                                        <td>${plan.planNo}</td>
+                                        <td>${plan.creator}</td>
+                                        <td>${plan.submitter}</td>
+                                        <td>${plan.fundingInUSD}</td>
+                                        <td>${plan.objectives}</td>
+                                        <td>${plan.starSystem}</td>
+                                        <td>${plan.startDate}</td>
+                                        <td>${plan.endDate}</td>
+                                        <td>${plan.telescopeLocation}</td>
+                                        <td>${plan.status}</td>
+                                    `;
+                                    sciencePlansBody2.appendChild(newRow);
+                                })
+                                .catch(error => console.error('Error fetching plan data:', error));
+                        }
+                    });
+
+                    // const rowToRemove = rows[planId - 1];
+                    // console.log("rowToRemove"+rowToRemove);
+                    // // if (rowToRemove) {
+                    // //     rowToRemove.remove();
+                    // //     console.log(`Row with planId ${planId} removed from sciencePlansBody`);
+                    // // } else {
+                    // //     console.log(`Row with planId ${planId} not found in sciencePlansBody`);
+                    // // }
+
+
                     // if (rowToRemove) {
                     //     rowToRemove.remove();
                     //     console.log(`Row with planId ${planId} removed from sciencePlansBody`);
-                    // } else {
-                    //     console.log(`Row with planId ${planId} not found in sciencePlansBody`);
+                    //
+                    //     // Fetch the plan data again
+                    //     fetch(`/sciplans/${planId}`)
+                    //         .then(response => response.json())
+                    //         .then(plan => {
+                    //             // Add plan to second table
+                    //             const row = document.createElement('tr');
+                    //             row.innerHTML = `
+                    //             // <td>${plan.planNo}</td>
+                    //             <td>${plan.creator}</td>
+                    //             <td>${plan.submitter}</td>
+                    //             <td>${plan.fundingInUSD}</td>
+                    //             <td>${plan.objectives}</td>
+                    //             <td>${plan.starSystem}</td>
+                    //             <td>${plan.startDate}</td>
+                    //             <td>${plan.endDate}</td>
+                    //             <td>${plan.telescopeLocation}</td>
+                    //             <td>${plan.status}</td>
+                    //         `;
+                    //             sciencePlansBody2.appendChild(row);
+                    //         })
+                    //         .catch(error => console.error('Error fetching plan data:', error));
                     // }
 
 
-                    if (rowToRemove) {
-                        rowToRemove.remove();
-                        console.log(`Row with planId ${planId} removed from sciencePlansBody`);
-
-                        // Fetch the plan data again
-                        fetch(`/sciplans/${planId}`)
-                            .then(response => response.json())
-                            .then(plan => {
-                                // Add plan to second table
-                                const row = document.createElement('tr');
-                                row.innerHTML = `
-                                <td>${plan.planNo}</td>
-                                <td>${plan.creator}</td>
-                                <td>${plan.submitter}</td>
-                                <td>${plan.fundingInUSD}</td>
-                                <td>${plan.objectives}</td>
-                                <td>${plan.starSystem}</td>
-                                <td>${plan.startDate}</td>
-                                <td>${plan.endDate}</td>
-                                <td>${plan.telescopeLocation}</td>
-                                <td>${plan.status}</td>
-                            `;
-                                sciencePlansBody2.appendChild(row);
-                            })
-                            .catch(error => console.error('Error fetching plan data:', error));
-                    }
                 }
             })
             .catch(error => {
