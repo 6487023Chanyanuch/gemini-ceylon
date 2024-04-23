@@ -10,8 +10,6 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -19,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Controller
+@RestController
 public class UserController {
 
     @Autowired
@@ -29,11 +27,12 @@ public class UserController {
     @Autowired
     private ScienceObserverRepository scienceObserverRepository;
 
-    @GetMapping("/users")
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userRepository.findAll();
-        return new ResponseEntity<>(users, HttpStatus.OK);
+    /* --show all user--
+    @GetMapping
+    public List<User> getAllUsers() {
+        return (List<User>) userRepository.findAll();
     }
+    */
 
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Long id) {
@@ -82,18 +81,6 @@ public class UserController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-    }
-
-    @GetMapping("/astro/{userId}")
-    public String showAstroPage ( @PathVariable Long userId, Model model ) {
-        // Add logic here to retrieve data for the Astronomer page if needed
-        return "astro";
-    }
-
-    @GetMapping("/sci/{userId}")
-    public String showSciObPage ( @PathVariable Long userId, Model model ) {
-        // Add logic here to retrieve data for the Astronomer page if needed
-        return "sci";
     }
 
 }
