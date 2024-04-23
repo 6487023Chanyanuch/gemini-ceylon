@@ -22,6 +22,8 @@
         .tbl-header {
             background-color: #b7bdef;
             padding-right: 0;
+            border: 1px solid rgba(0, 0, 0, 0.3);
+            width: 95%;
             /* Removed scrollbar width */
         }
 
@@ -30,6 +32,7 @@
             overflow-x: auto;
             margin-top: 0px;
             border: 1px solid rgba(0, 0, 0, 0.3);
+            width: 95%;
         }
 
         th {
@@ -52,7 +55,8 @@
         }
 
         /* Button style */
-        .create-button {
+        .create-button,
+        .but-test{
             background-color: #7380ec;
             border: none;
             color: white;
@@ -66,7 +70,8 @@
             border-radius: 4px;
         }
 
-        .create-button:hover {
+        .create-button:hover,
+        .but-test:hover{
             background-color: #111e88;
             border: none;
             color: white;
@@ -85,13 +90,15 @@
         @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,300,700);
 
         body {
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             font-family: "Alegreya Sans", sans-serif;
             font-size: 0.88rem;
             background: #ffffff;
             user-select: none;
             overflow-x: hidden;
+            padding-left: 30px;
+            /*padding-top: 20px;*/
         }
 
 
@@ -161,7 +168,7 @@
             margin: 15% auto;
             padding: 20px;
             border: 1px solid #888;
-            width: 80%;
+            width: 70%;
         }
 
         .input-form {
@@ -1357,20 +1364,91 @@
             border-radius: 4px;
         }
 
-        .but-test {
-            background-color: #C70039;
+        .custom-button:hover {
+            background-color: #ff0000;
             color: white;
-            font-size: 1.5em;
-            border: 2px solid #C70039;
-            border-radius: 20px;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        /*.but-test {*/
+        /*    font-size: 1.5em;*/
+        /*    !*border: 2px solid #C70039;*!*/
+        /*    !*border-radius: 20px;*!*/
+        /*    padding: 10px 20px;*/
+        /*    cursor: pointer;*/
+        /*    display: block;*/
+        /*    margin: 0 auto;*/
+        /*}*/
+
+        /*.but-test:hover {*/
+        /*    font-size: 1.5em;*/
+        /*    !*border: 2px solid #C70039;*!*/
+        /*    !*border-radius: 20px;*!*/
+        /*    padding: 10px 20px;*/
+        /*    cursor: pointer;*/
+        /*    display: block;*/
+        /*    margin: 0 auto;*/
+        /*}*/
+
+        /*#popup {*/
+        /*    position: fixed;*/
+        /*    left: 50%;*/
+        /*    top: 50%;*/
+        /*    transform: translate(-50%, -50%);*/
+        /*    background-color: white;*/
+        /*    border: 1px solid black;*/
+        /*    padding: 20px;*/
+        /*    z-index: 100;*/
+        /*    overflow-y: scroll;*/
+        /*    width: 750px;*/
+        /*    height: 750px;*/
+        /*}*/
+
+        /*#popup .popup-content {*/
+        /*    background-color: #fff;*/
+        /*    border-radius: 5px;*/
+        /*    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);*/
+        /*    padding: 20px;*/
+        /*    height: 400px;*/
+        /*    overflow-y: auto;*/
+        /*    width: 700px;*/
+        /*    height: 700px;*/
+        /*}*/
+
+        /*#popup .close-button {*/
+        /*    position: absolute;*/
+        /*    top: 10px;*/
+        /*    right: 10px;*/
+        /*    font-size: 24px;*/
+        /*    cursor: pointer;*/
+        /*}*/
+
+        /* Styles for buttons */
+        .but-test {
+            /*font-size: 1.5em;*/
             padding: 10px 20px;
             cursor: pointer;
             display: block;
             margin: 0 auto;
         }
 
+        .but-test:hover {
+            /*font-size: 1.5em;*/
+            padding: 10px 20px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+        }
 
-
+        /* Popup styling */
         #popup {
             position: fixed;
             left: 50%;
@@ -1380,29 +1458,32 @@
             border: 1px solid black;
             padding: 20px;
             z-index: 100;
-            overflow-y: scroll;
-            width: 750px;
-            height: 750px;
+            width: 550px; /* Adjusted width to reduce size */
+            height: 550px; /* Adjusted height to reduce size */
+            overflow-y: auto; /* Allow vertical scrolling */
+            overflow-x: hidden; /* Prevent horizontal overflow */
         }
 
+        /* Styling for popup content */
         #popup .popup-content {
             background-color: #fff;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
             padding: 20px;
-            height: 400px;
-            overflow-y: auto;
-            width: 700px;
-            height: 700px;
+            width: 500px; /* Adjusted to fit within the popup */
+            height: 500px; /* Adjusted to fit within the popup */
+            overflow-y: auto; /* Allow content to scroll if too long */
         }
 
+        /* Close button styling */
         #popup .close-button {
             position: absolute;
             top: 10px;
-            right: 10px;
+            right: 10px; /* Keeps close button on the right */
             font-size: 24px;
             cursor: pointer;
         }
+
 
         .close {
             color: #aaaaaa;
@@ -1417,6 +1498,34 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+        /* Styling for spinner and loading message */
+        .spinner {
+            border: 4px solid #f3f3f3; /* Light grey */
+            border-top: 4px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Loading container styling */
+        #loadingContainer {
+            display: flex; /* To align the spinner and message horizontally */
+            align-items: center;
+            gap: 10px; /* Space between spinner and message */
+            justify-content: center;
+        }
+
     </style>
 
 
@@ -1565,7 +1674,7 @@
                     <li class="zf-tempFrmWrapper zf-date"><label class="zf-labelName"> Start Date </label>
                         <div class="zf-tempContDiv">
                                 <span> <input id="sciStartDate" type="text"
-                                              name="sciStartDate" /><label>dd-MM-yyyy</label> </span>
+                                              name="sciStartDate" /><label>yyyy-MM-dd</label> </span>
                             <div class="zf-clearBoth"></div>
                             <p id="Date_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
                         </div>
@@ -1576,7 +1685,7 @@
                     <!---------End Date Starts Here---------->
                     <li class="zf-tempFrmWrapper zf-date"><label class="zf-labelName"> End Date </label>
                         <div class="zf-tempContDiv">
-                                <span> <input id="sciEndDate" type="text" name="sciEndDate" /><label>dd-MM-yyyy</label>
+                                <span> <input id="sciEndDate" type="text" name="sciEndDate" /><label>yyyy-MM-dd</label>
                                 </span>
                             <div class="zf-clearBoth"></div>
                             <p id="Date1_error" class="zf-errorMessage" style="display:none;">Invalid value </p>
@@ -1850,7 +1959,7 @@
                         <td>${plan.telescopeLocation}</td>
                         <td>${plan.status}</td>
                         <td>
-                         <button class="custom-button" data-plan-id="${plan.planNo}">Test</button>
+                         <button class="custom-button" data-plan-id="${plan.planNo}">Test Science Plan</button>
                         </td>
 
                     `;
@@ -1889,6 +1998,10 @@
                                     <p style=" font-size: 1.1em;"><span style="font-weight: bold;">Hue: </span>${req.hue}</p>
                                 `).join('')}
                             </ul>
+                               <div id="loadingContainer" style="display: none;">
+            <div id="loadingMessage"> Testing . . .</div>
+            <div class="spinner"></div>
+        </div><br>
                             <button class="but-test" data-plan-id="${plan.planNo}" onclick="handleTestButtonClick(event)">Test</button>
 
                     `;
@@ -1956,6 +2069,9 @@
             console.error('Invalid plan ID');
             return;
         }
+
+        // document.getElementById('modalForm').style.display = 'block';
+        document.getElementById('loadingContainer').style.display = 'flex'; // Show spinner and message
 
         fetch(`/testsciplans/${planId}`, {
             method: 'GET',
@@ -2152,6 +2268,7 @@
             })
             .catch(error => {
                 console.error('Error:', error);
+                document.getElementById('loadingContainer').style.display = 'none';
                 document.getElementById('popup').style.display = 'none';
                 return; // เพิ่ม return เพื่อหยุดการทำงานทันที
             });
@@ -2170,6 +2287,7 @@
         }
     });
 
+
     // Get the <span> element that closes the modal
     var span = document.querySelector(".modal-content .close");
 
@@ -2185,6 +2303,7 @@
             modal.style.display = "none";
         }
     }
+
 
     document.getElementById('sciencePlanForm').addEventListener('submit', function (event) {
         event.preventDefault(); // หยุดการ submit ฟอร์มเพื่อป้องกันหน้าเว็บโหลดใหม่

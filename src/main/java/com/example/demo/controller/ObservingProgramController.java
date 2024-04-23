@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.model.ObservingProgramModel;
 import com.example.demo.model.PositionPair;
+import com.example.demo.model.SciencePlanModel;
 import com.example.demo.repository.ObservingProgramRepository;
 import com.example.demo.repository.ScienceObserverRepository;
 import com.example.demo.repository.SciencePlanRepository;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ObservingProgramController {
@@ -107,7 +109,5 @@ public class ObservingProgramController {
         List<ObservingProgramModel> allObservingPrograms = observingProgramRepository.findAll();
         return allObservingPrograms;
     }
-
-
 
 }

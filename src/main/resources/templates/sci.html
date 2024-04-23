@@ -42,6 +42,7 @@
         .tbl-header {
             background-color: #b7bdef;
             padding-right: 0;
+            width: 98%;
         }
 
         .tbl-content {
@@ -49,6 +50,7 @@
             overflow-x: auto;
             margin-top: 0px;
             border: 1px solid rgba(0, 0, 0, 0.3);
+            width: 98%;
         }
 
         th {
@@ -86,7 +88,7 @@
         }
 
         .create-button:hover {
-            background-color: #111e88;
+            background-color: #7380ec;
             border: none;
             color: white;
             padding: 10px 20px;
@@ -98,6 +100,38 @@
             cursor: pointer;
             border-radius: 4px;
         }
+
+        .create-buttonnn {
+            background-color: palevioletred;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .create-buttonnn:hover {
+            background-color: #ff0000;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+
+
+
 
         /* demo styles */
 
@@ -111,6 +145,8 @@
             background: #ffffff;
             user-select: none;
             overflow-x: hidden;
+            padding-left: 30px;
+            padding-top: 20px;
         }
 
         section {
@@ -417,36 +453,36 @@
             margin-left: 35%;
         }
 
-
-        .card .card-row {
+        .card-row {
             display: flex;
             flex-wrap: wrap;
-            margin-bottom: 20px;
-            /* Adjust as needed */
+            justify-content: space-between; /* เพื่อให้ card กระจายอย่างเหมาะสม */
+            margin-bottom: 20px; /* ระยะห่างระหว่างแถว */
+
         }
 
         .card {
-            flex: 0 0 calc(33.33% - 20px);
-            /* 3 cards per row with 20px margin between */
-            margin-right: 20px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
+            flex: 0 0 32%; /* ความกว้าง 32% เพื่อให้มีพื้นที่สำหรับ margin */
+            margin-right: 1%; /* ระยะห่างระหว่าง card */
             border-radius: 5px;
             overflow: hidden;
+            border: 1px solid #ccc;
         }
 
         .card:last-child {
-            margin-right: 0;
+            margin-right: 20px;
         }
 
         .card-header {
-            background-color: #f2f2f2;
+            background-color: #b7bdef;
             padding: 10px;
             text-align: center;
+            border: 1px solid #ccc;
         }
 
         .card-body {
             padding: 10px;
+            border: 1px solid #ccc;
         }
 
         .card-footer {
@@ -454,12 +490,42 @@
             padding: 10px;
             text-align: center;
         }
+
+        .card-footer .edit-button {
+            background-color: #7380ec;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .card-footer .delete-button {
+            background-color: palevioletred;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 12px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
     </style>
 </head>
 
 <body>
 <div class="container">
-    <h2>Science Plans</h2>
+    <h2> Science Plans 🗒️</h2>
+    <br>
     <div class="tbl-header">
         <table cellpadding="0" cellspacing="0" border="0">
             <thead>
@@ -488,7 +554,9 @@
     </div>
 </div>
 
-<h2>Observing Programs</h2>
+<br>
+<h2> 📜 Observing Programs 📜</h2>
+<BR>
 <div id="observingProgramsBody" class="card-container">
     <!-- Data will be dynamically added here as cards -->
 </div>
@@ -539,12 +607,18 @@
                         </div>
                     </li>
 
-                    <li class="zf-tempFrmWrapper zf-small">
-                        <label for="scienceFoldMirrorType" class="zf-labelName">Science Fold Mirror Type:</label>
+
+                    <li class="zf-tempFrmWrapper zf-small"><label for="scienceFoldMirrorType" class="zf-labelName">
+                        Science Fold Mirror Type:</label>
                         <div class="zf-tempContDiv">
-                                <span> <input type="text" id="scienceFoldMirrorType"
-                                              name="scienceFoldMirrorType"></span>
+                            <select id="scienceFoldMirrorType" class="zf-form-sBox" name="scienceFoldMirrorType">
+                                <option selected="true" value="-Select-">-Select-</option>
+                                <option value="CASSEGRAIN_FOCUS">CASSEGRAIN_FOCUS</option>
+                                <option value="REFLECTIVE_CONVERGING_BEAM">REFLECTIVE_CONVERGING_BEAM</option>
+                            </select>
+                            <p id="Dropdown2_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
                         </div>
+                        <div class="zf-clearBoth"></div>
                     </li>
 
                     <li class="zf-tempFrmWrapper zf-small">
@@ -554,21 +628,32 @@
                         </div>
                     </li>
 
-                    <li class="zf-tempFrmWrapper zf-small">
-                        <label for="calibrationUnit" class="zf-labelName">Calibration Unit:</label>
+                    <li class="zf-tempFrmWrapper zf-small"><label class="zf-labelName">
+                        Calibration Unit:</label>
                         <div class="zf-tempContDiv">
-                            <input type="text" id="calibrationUnit" name="calibrationUnit">
+                            <select id="calibrationUnit" class="zf-form-sBox" name="calibrationUnit">
+                                <option selected="true" value="-Select-">-Select-</option>
+                                <option value="Argon">Argon</option>
+                                <option value="CuAr">CuAr</option>
+                                <option value="ThAr">ThAr</option>
+                                <option value="Xenon">Xenon</option>
+                            </select>
+                            <p id="Dropdown3_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
                         </div>
+                        <div class="zf-clearBoth"></div>
                     </li>
 
-                    <li class="zf-tempFrmWrapper zf-small">
-                        <label for="lightType" class="zf-labelName">Light Type:</label>
+                    <li class="zf-tempFrmWrapper zf-small"><label class="zf-labelName">
+                        Light Type:</label>
                         <div class="zf-tempContDiv">
-                                <span>
-                                    <input type="text" id="lightType" name="lightType">
-                                </span>
-
+                            <select id="lightType" class="zf-form-sBox" name="lightType">
+                                <option selected="true" value="-Select-">-Select-</option>
+                                <option value="CerroPachonSkyEmission">CerroPachonSkyEmission</option>
+                                <option value="MaunaKeaSkyEmission">MaunaKeaSkyEmission</option>
+                            </select>
+                            <p id="Dropdown4_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
                         </div>
+                        <div class="zf-clearBoth"></div>
                     </li>
 
                     <li class="zf-tempFrmWrapper zf-small">
@@ -617,9 +702,61 @@
 </div>
 
 <script>
+
+    // window.onload = fetchSciencePlans;
+    // //
+    // async function fetchUserId() {
+    //     try {
+    //         const response = await fetch('/userId'); // Fetching User ID from endpoint
+    //         if (!response.ok) {
+    //             throw new Error('Failed to fetch User ID'); // Check if response is okay
+    //         }
+    //         const data = await response.json(); // Parse JSON response
+    //         return data.userId; // Return the User ID
+    //     } catch (error) {
+    //         console.error('Error fetching User ID:', error); // Handle error
+    //         throw error; // Re-throw error to be handled further
+    //     }
+    // }
+
+    // // Function to fetch science plans data
+    // function fetchSciencePlans() {
+    //     fetch('/sciplans') // Assuming this endpoint returns the science plans JSON data
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             const sciencePlansBody = document.getElementById('sciencePlansBody');
+    //
+    //             // Clear any existing rows
+    //             sciencePlansBody.innerHTML = '';
+    //
+    //             // Iterate over the science plans and create table rows
+    //             data.forEach(plan => {
+    //                 const row = document.createElement('tr');
+    //                 row.innerHTML = `
+    //                     <td>${plan.planNo}</td>
+    //                     <td>${plan.creator}</td>
+    //                     <td>${plan.submitter}</td>
+    //                     <td>${plan.fundingInUSD}</td>
+    //                     <td>${plan.objectives}</td>
+    //                     <td>${plan.starSystem}</td>
+    //                     <td>${plan.startDate}</td>
+    //                     <td>${plan.endDate}</td>
+    //                     <td>${plan.telescopeLocation}</td>
+    //                     <td>${plan.status}</td>
+    //                     <td><button class="create-button">Create Observing Program</button></td>
+    //                 `;
+    //                 sciencePlansBody.appendChild(row);
+    //             });
+    //         })
+    //         .catch(error => console.error('Error fetching science plans:', error));
+    // }
+    //
+    // // Call the function to fetch and display science plans data
+    // fetchSciencePlans();
+
     // Function to fetch science plans data
     function fetchSciencePlans() {
-        fetch('/sciplans') // Assuming this endpoint returns the science plans JSON data
+        fetch(`/sciplans/scienceObserver/14`) // Assuming this endpoint returns the science plans JSON data
             .then(response => response.json())
             .then(data => {
                 const sciencePlansBody = document.getElementById('sciencePlansBody');
@@ -629,21 +766,24 @@
 
                 // Iterate over the science plans and create table rows
                 data.forEach(plan => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${plan.planNo}</td>
-                        <td>${plan.creator}</td>
-                        <td>${plan.submitter}</td>
-                        <td>${plan.fundingInUSD}</td>
-                        <td>${plan.objectives}</td>
-                        <td>${plan.starSystem}</td>
-                        <td>${plan.startDate}</td>
-                        <td>${plan.endDate}</td>
-                        <td>${plan.telescopeLocation}</td>
-                        <td>${plan.status}</td>
-                        <td><button class="create-button">Create Observing Program</button></td>
-                    `;
-                    sciencePlansBody.appendChild(row);
+                    if (plan.status === 'TESTED') {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${plan.planNo}</td>
+                            <td>${plan.creator}</td>
+                            <td>${plan.submitter}</td>
+                            <td>${plan.fundingInUSD}</td>
+                            <td>${plan.objectives}</td>
+                            <td>${plan.starSystem}</td>
+                            <td>${plan.startDate}</td>
+                            <td>${plan.endDate}</td>
+                            <td>${plan.telescopeLocation}</td>
+                            <td>${plan.status}</td>
+                            <td><button class="create-buttonnn">Create Observing Program</button></td>
+                        `;
+                        sciencePlansBody.appendChild(row);
+                    }
+
                 });
             })
             .catch(error => console.error('Error fetching science plans:', error));
@@ -651,6 +791,25 @@
 
     // Call the function to fetch and display science plans data
     fetchSciencePlans();
+
+    // (async function initialize() {
+    //     try {
+    //         const userId = await fetchUserId(); // Fetch User ID asynchronously
+    //         fetchSciencePlans(userId); // Fetch Science Plans using the obtained User ID
+    //     } catch (error) {
+    //         console.error('Error initializing:', error); // Handle any initialization error
+    //     }
+    // });
+
+    // async function call() {
+    //     try {
+    //         const userId = await fetchUserId(); // Fetch User ID asynchronously
+    //         fetchSciencePlans(userId); // Fetch Science Plans using the obtained User ID
+    //     } catch (error) {
+    //         console.error('Error initializing:', error); // Handle any initialization error
+    //     }
+    // }
+    // call();
 
     // Function to fetch observing programs data
     function fetchObservingPrograms() {
@@ -845,6 +1004,7 @@
                 alert('Observing Program created successfully.');
                 // ปิด Modal
                 document.getElementById('modalForm').style.display = 'none';
+                window.location.reload();
             })
             .catch(error => {
                 console.error('There was a problem with your fetch operation:', error);
@@ -862,11 +1022,12 @@
             // ปิด Modal
             document.getElementById('modalForm').style.display = 'none';
             fetchObservingPrograms();
+            window.location.reload()
         })
         .catch(error => {
             console.error('There was a problem with your fetch operation:', error);
             // แสดงข้อความแจ้งเตือนถ้ามีปัญหา
-            alert('There was a problem creating the Observing Program. Please try again later.');
+            // alert('There was a problem creating the Observing Program. Please try again later.');
         });
     }
 

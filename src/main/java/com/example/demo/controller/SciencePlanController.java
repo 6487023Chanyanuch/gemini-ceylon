@@ -53,6 +53,7 @@ public class SciencePlanController {
         return ocs.getSciencePlanByNo(Math.toIntExact(id));
     }
 
+
     @GetMapping("/sciplans/{userRole}/{userId}")
     public ResponseEntity<List<SciencePlan>> getSciencePlansByUser(@PathVariable String userRole, @PathVariable Long userId) {
         List<SciencePlan> filteredSciencePlans = new ArrayList<>();
@@ -69,13 +70,8 @@ public class SciencePlanController {
                 }
                 break;
 
-            case "ScienceObserver":
-                List<SciencePlan> allSciencePlans = ocs.getAllSciencePlans();
-                for (SciencePlan plan : allSciencePlans) {
-                    if (plan.getStatus().equals("TESTED")) {
-                        filteredSciencePlans.add(plan);
-                    }
-                }
+            case "scienceObserver":
+                filteredSciencePlans = ocs.getAllSciencePlans();
                 break;
 
             default:
@@ -84,6 +80,7 @@ public class SciencePlanController {
 
         return ResponseEntity.ok(filteredSciencePlans);
     }
+
 
     @GetMapping("/astro/{userId}")
     public String showAstroPage ( @PathVariable Long userId, Model model ) {
