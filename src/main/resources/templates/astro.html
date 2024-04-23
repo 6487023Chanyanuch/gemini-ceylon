@@ -1787,9 +1787,9 @@
                 <li class="zf-fmFooter"><button id="myButton" type="submit" value="Submit" class="zf-submitColor">
                     CREATE </button></li>
             </ul>
-    <!-- 'zf-templateWrapper' ends -->
+            <!-- 'zf-templateWrapper' ends -->
 
-    </form>
+        </form>
     </div>
 </div>
 
@@ -1822,7 +1822,7 @@
     // Function to fetch science plans data
     async function fetchSciencePlans(userId) {
         try{
-            const response = await fetch(`/sciplans/astronomer/${userId}`);
+            const response = await fetch(`/sciplans/astronomer/15`);
             if (!response.ok) {
                 throw new Error('Failed to fetch Science Plans');
             }
