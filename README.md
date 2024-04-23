@@ -41,6 +41,9 @@
 5. Observing Program ที่สร้างจะแสดงในช่องว่างด้านล่างตรงส่วนของ Observing Program
 
 
+# Design Patterns 
+
+
 
 
 
