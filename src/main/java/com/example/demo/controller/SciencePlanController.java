@@ -170,7 +170,7 @@ public class SciencePlanController {
         }
     }
 
-       @CrossOrigin
+    @CrossOrigin
     @GetMapping ("/submitsciplans/{id}")
     public ResponseEntity<String> submitSciencePlan(@PathVariable Long id) {
         if (id != null) {
