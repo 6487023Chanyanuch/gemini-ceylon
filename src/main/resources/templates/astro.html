@@ -1350,7 +1350,8 @@
             font-size: 13px;
         }
 
-        .custom-button {
+        .custom-button,
+        .but-tests {
             background-color: palevioletred;
             color: white;
             border: none;
@@ -1364,7 +1365,8 @@
             border-radius: 4px;
         }
 
-        .custom-button:hover {
+        .custom-button:hover,
+        .but-tests:hover{
             background-color: #ff0000;
             color: white;
             border: none;
@@ -1552,7 +1554,7 @@
                 <th>End Date</th>
                 <th>Telescope Location</th>
                 <th>Status</th>
-                <th>Action</th> <!-- New column header -->
+                <th>Action</th>
             </tr>
             </thead>
         </table>
@@ -1582,6 +1584,7 @@
                 <th>End Date</th>
                 <th>Telescope Location</th>
                 <th>Status</th>
+                <th>Action</th>
             </tr>
             </thead>
         </table>
@@ -1674,7 +1677,7 @@
                     <li class="zf-tempFrmWrapper zf-date"><label class="zf-labelName"> Start Date </label>
                         <div class="zf-tempContDiv">
                                 <span> <input id="sciStartDate" type="text"
-                                              name="sciStartDate" /><label>yyyy-MM-dd</label> </span>
+                                              name="sciStartDate" /><label>dd-MM-yyyy</label> </span>
                             <div class="zf-clearBoth"></div>
                             <p id="Date_error" class="zf-errorMessage" style="display:none;">Invalid value</p>
                         </div>
@@ -1685,7 +1688,7 @@
                     <!---------End Date Starts Here---------->
                     <li class="zf-tempFrmWrapper zf-date"><label class="zf-labelName"> End Date </label>
                         <div class="zf-tempContDiv">
-                                <span> <input id="sciEndDate" type="text" name="sciEndDate" /><label>yyyy-MM-dd</label>
+                                <span> <input id="sciEndDate" type="text" name="sciEndDate" /><label>dd-MM-yyyy</label>
                                 </span>
                             <div class="zf-clearBoth"></div>
                             <p id="Date1_error" class="zf-errorMessage" style="display:none;">Invalid value </p>
@@ -1959,7 +1962,7 @@
                         <td>${plan.telescopeLocation}</td>
                         <td>${plan.status}</td>
                         <td>
-                         <button class="custom-button" data-plan-id="${plan.planNo}">Test Science Plan</button>
+                         <button class="custom-button" data-plan-id="${plan.planNo}">Test</button>
                         </td>
 
                     `;
@@ -1998,18 +2001,17 @@
                                     <p style=" font-size: 1.1em;"><span style="font-weight: bold;">Hue: </span>${req.hue}</p>
                                 `).join('')}
                             </ul>
-                               <div id="loadingContainer" style="display: none;">
+                           <div id="loadingContainer" style="display: none;">
             <div id="loadingMessage"> Testing . . .</div>
             <div class="spinner"></div>
         </div><br>
                             <button class="but-test" data-plan-id="${plan.planNo}" onclick="handleTestButtonClick(event)">Test</button>
-
                     `;
                     // Display the pop-up
                     document.getElementById('popup').style.display = 'block';
                 });
 
-                if (plan.status === "TESTED") {
+                if (plan.status === "TESTED" || plan.status === "SUBMITTED") {
                     // console.log('status:', plan.status);
                     const row2 = document.createElement('tr');
                     row2.innerHTML = `
@@ -2023,6 +2025,8 @@
                             <td>${plan.endDate}</td>
                             <td>${plan.telescopeLocation}</td>
                             <td>${plan.status}</td>
+                            <button class="but-tests" data-plan-id="${plan.planNo}" onclick="handleSubmitButtonClick(event)">Submit</button>
+
                         `;
                     sciencePlansBody2.appendChild(row2);
                 } else {
@@ -2065,13 +2069,13 @@
         console.log('Plan ID:', planId);
         console.log('Data Type:', typeof planId);
 
+        document.getElementById('loadingContainer').style.display = 'flex'; // Show spinner and message
+
+
         if (isNaN(planId)) {
             console.error('Invalid plan ID');
             return;
         }
-
-        // document.getElementById('modalForm').style.display = 'block';
-        document.getElementById('loadingContainer').style.display = 'flex'; // Show spinner and message
 
         fetch(`/testsciplans/${planId}`, {
             method: 'GET',
@@ -2119,6 +2123,7 @@
                 alert(message);
 
                 document.getElementById('popup').style.display = 'none';
+                window.location.reload();
 
 
                 // const rows = Array.prototype.slice.call(sciencePlansBody.querySelectorAll('tr'));
@@ -2268,9 +2273,42 @@
             })
             .catch(error => {
                 console.error('Error:', error);
-                document.getElementById('loadingContainer').style.display = 'none';
                 document.getElementById('popup').style.display = 'none';
                 return; // เพิ่ม return เพื่อหยุดการทำงานทันที
+            });
+    }
+
+    function handleSubmitButtonClick(event) {
+
+        const planIdElement = event.currentTarget.dataset.planId;
+        const planId = Number(planIdElement);
+
+        console.log('Plan ID:', planId);
+        console.log('Data Type:', typeof planId);
+
+        if (isNaN(planId)) {
+            console.error('Invalid plan ID');
+            return;
+        }
+
+        // document.getElementById('loadingContainer').style.display = 'flex'; // Show spinner and message
+
+        fetch(`/submitsciplans/${planId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => {
+                return response.text();
+                window.location.reload();
+            })
+            .then(data => {
+                console.log('Finished Submit:', data);
+                window.location.reload();
+            })
+            .catch(error => {
+                console.error('Error:', error);
             });
     }
 
@@ -2287,7 +2325,6 @@
         }
     });
 
-
     // Get the <span> element that closes the modal
     var span = document.querySelector(".modal-content .close");
 
@@ -2303,7 +2340,6 @@
             modal.style.display = "none";
         }
     }
-
 
     document.getElementById('sciencePlanForm').addEventListener('submit', function (event) {
         event.preventDefault(); // หยุดการ submit ฟอร์มเพื่อป้องกันหน้าเว็บโหลดใหม่
