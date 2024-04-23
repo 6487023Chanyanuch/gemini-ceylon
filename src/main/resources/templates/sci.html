@@ -766,7 +766,7 @@
 
                 // Iterate over the science plans and create table rows
                 data.forEach(plan => {
-                    if (plan.status === 'TESTED') {
+                    if (plan.status === 'SUBMITTED') {
                         const row = document.createElement('tr');
                         row.innerHTML = `
                             <td>${plan.planNo}</td>
