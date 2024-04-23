@@ -170,6 +170,22 @@ public class SciencePlanController {
         }
     }
 
+       @CrossOrigin
+    @GetMapping ("/submitsciplans/{id}")
+    public ResponseEntity<String> submitSciencePlan(@PathVariable Long id) {
+        if (id != null) {
+            try {
+                SciencePlan sp = ocs.getSciencePlanByNo(Math.toIntExact(id));
+                String submitResult = ocs.submitSciencePlan(sp);
+                return ResponseEntity.ok(submitResult);
+            } catch (NumberFormatException e) {
+                return ResponseEntity.badRequest().body("Invalid plan ID");
+            }
+        } else {
+            return ResponseEntity.badRequest().body("Plan ID is required");
+        }
+    }
+
 
 
 }
